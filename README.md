@@ -4,11 +4,11 @@ Custom PHP 7.4 ruleset for [PHP_CodeSniffer](https://github.com/squizlabs/PHP_Co
 
 Ruleset uses sniffs bundled with PHPCS, numerous sniffs from [Slecomat coding-standard](https://github.com/slevomat/coding-standard), and also some of its own custom built sniffs.
 
-Ruleset is designed for PHP 7.4 because of specific property spacing, which is not plausible without typed properties.
+Ruleset is designed for PHP 7.4 because of its specific property spacing, which is not plausible without typed properties.
 
 ## Installation
 
-Recommended way is to install using [composer-bin plugin](https://github.com/bamarni/composer-bin-plugin), so it wont interfere with your project's dependencies.
+Recommended way is to install using [composer-bin plugin](https://github.com/bamarni/composer-bin-plugin), so it won't interfere with your project's dependencies.
 
 ```
 composer require --dev bamarni/composer-bin-plugin
