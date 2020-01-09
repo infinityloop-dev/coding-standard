@@ -88,6 +88,34 @@ Excluded sniffs:
 
 #### Cleaning
 
+SlevomatCodingStandard.Classes.UnusedPrivateElements construction
+    - alwaysUsedPropertiesAnnotations: false
+    - alwaysUsedPropertiesSuffixes: false
+- SlevomatCodingStandard.Functions.UnusedInheritedVariablePassedToClosure
+- SlevomatCodingStandard.Functions.UnusedParameter
+- SlevomatCodingStandard.Functions.UselessParameterDefaultValue
+- SlevomatCodingStandard.Namespaces.UnusedUses
+    - searchAnnotations: false
+    - ignoredAnnotationNames: false
+    - ignoredAnnotations: false
+- SlevomatCodingStandard.Namespaces.UseFromSameNamespace
+- SlevomatCodingStandard.Namespaces.UselessAlias
+- SlevomatCodingStandard.PHP.RequireExplicitAssertion
+- SlevomatCodingStandard.PHP.RequireNowdoc wrench
+- SlevomatCodingStandard.PHP.UselessParentheses
+    - ignoreComplexTernaryConditions: true
+- SlevomatCodingStandard.PHP.OptimizedFunctionsWithoutUnpacking
+- SlevomatCodingStandard.PHP.UselessSemicolon
+- SlevomatCodingStandard.Variables.DuplicateAssignmentToVariable
+- SlevomatCodingStandard.Variables.UnusedVariable
+    - ignoreUnusedValuesWhenOnlyKeysAreUsedInForeach: true
+- SlevomatCodingStandard.Variables.UselessVariable
+- SlevomatCodingStandard.Exceptions.DeadCatch
+
+Excluded sniffs:
+
+SlevomatCodingStandard.PHP.DisallowReference
+
 #### Formatting
 
 ### Custom sniffs
