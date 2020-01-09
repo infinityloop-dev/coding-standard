@@ -48,7 +48,9 @@ Feel free to copy ruleset.xml in your project directory, customize configuration
     - no space after function keyword
     
 Ruleset includes all necessary sniffs to enforce remaining PSR12 rules.
-    
+
+### PHPCS sniffs
+
 ### Slevomat sniffs
 
 #### Functional
@@ -114,9 +116,119 @@ SlevomatCodingStandard.Classes.UnusedPrivateElements construction
 
 Excluded sniffs:
 
-SlevomatCodingStandard.PHP.DisallowReference
+- SlevomatCodingStandard.PHP.DisallowReference
 
 #### Formatting
+
+- SlevomatCodingStandard.Arrays.TrailingArrayComma wrench
+    - enableAfterHeredoc: false
+- SlevomatCodingStandard.Classes.ModernClassNameReference wrench
+- SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming
+- SlevomatCodingStandard.Classes.SuperfluousInterfaceNaming
+- SlevomatCodingStandard.Classes.SuperfluousTraitNaming
+- SlevomatCodingStandard.Classes.TraitUseDeclaration
+- SlevomatCodingStandard.Classes.TraitUseSpacing wrench
+    - linesCountBeforeFirstUse: 0
+    - linesCountBetweenUses: 0
+    - linesCountAfterLastUse: 1
+    - linesCountAfterLastUseWhenLastInClass: 0
+- SlevomatCodingStandard.ControlStructures.BlockControlStructureSpacing
+    - linesCountBeforeControlStructure: 1
+    - linesCountBeforeFirstControlStructure: 0
+    - linesCountAfterControlStructure: 1
+    - linesCountAfterLastControlStructure: 0
+    - tokensToCheck: default
+- SlevomatCodingStandard.ControlStructures.JumpStatementsSpacing
+    - allowSingleLineYieldStacking: whether or not to allow multiple yield/yield from statements in a row without blank lines.
+    - linesCountBeforeControlStructure: 1
+    - linesCountBeforeFirstControlStructure: 0
+    - linesCountAfterControlStructure: 0
+    - linesCountAfterLastControlStructure: 0
+    - tokensToCheck: default
+- SlevomatCodingStandard.ControlStructures.LanguageConstructWithParentheses
+- SlevomatCodingStandard.ControlStructures.NewWithParentheses
+- SlevomatCodingStandard.ControlStructures.RequireMultiLineTernaryOperator
+    - lineLengthLimit: 0
+- SlevomatCodingStandard.ControlStructures.RequireShortTernaryOperator
+- SlevomatCodingStandard.ControlStructures.RequireTernaryOperator
+    - ignoreMultiLine: false
+- SlevomatCodingStandard.ControlStructures.DisallowYodaComparison
+- SlevomatCodingStandard.Functions.DisallowArrowFunction
+- SlevomatCodingStandard.Functions.TrailingCommaInCall
+- SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses
+    - psr12Compatible: true
+    - caseSensitive: true
+- SlevomatCodingStandard.Namespaces.RequireOneNamespaceInFile
+- SlevomatCodingStandard.Namespaces.NamespaceDeclaration
+- SlevomatCodingStandard.Namespaces.NamespaceSpacing
+    - linesCountBeforeNamespace: 1
+    - linesCountAfterNamespace: 1
+- SlevomatCodingStandard.Namespaces.UseSpacing
+    - linesCountBeforeFirstUse: 1
+    - linesCountBetweenUseTypes: 0
+    - linesCountAfterLastUse: 1
+- SlevomatCodingStandard.Numbers.DisallowNumericLiteralSeparator
+- SlevomatCodingStandard.PHP.ReferenceSpacing
+    - spacesCountAfterReference: 0
+- SlevomatCodingStandard.Operators.SpreadOperatorSpacing
+    - spacesCountAfterOperator: 0
+- SlevomatCodingStandard.TypeHints.DisallowArrayTypeHintSyntax
+    - traversableTypeHints: default
+- SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint
+- SlevomatCodingStandard.TypeHints.LongTypeHints wrench
+- SlevomatCodingStandard.TypeHints.NullTypeHintOnLastPosition
+- SlevomatCodingStandard.PHP.ShortList wrench
+- SlevomatCodingStandard.PHP.TypeCast
+- SlevomatCodingStandard.Files.TypeNameMatchesFileName
+- SlevomatCodingStandard.Classes.ClassConstantVisibility
+    - fixable: true
+- SlevomatCodingStandard.TypeHints.ReturnTypeHintSpacing
+    - spacesCountBeforeColon: 1
+- SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue
+- SlevomatCodingStandard.TypeHints.ParameterTypeHintSpacing wrench
+- SlevomatCodingStandard.TypeHints.PropertyTypeHintSpacing wrench
+- SlevomatCodingStandard.Namespaces.DisallowGroupUse
+- SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameAfterKeyword
+    - keywordsToCheck: T_EXTENDS, T_IMPLEMENETS, T_USE, T_NEW, T_THROW
+- SlevomatCodingStandard.Namespaces.FullyQualifiedExceptions
+    - specialExceptionNames: false
+    - ignoredNames: default
+- SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalConstants
+    - exclude: false
+- SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalFunctions
+    - exclude: false
+- SlevomatCodingStandard.Namespaces.MultipleUsesPerLine
+- SlevomatCodingStandard.Namespaces.UseDoesNotStartWithBackslash wrench
+- SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces wrench
+    - linesCountAfterOpeningBrace: 0
+    - linesCountBeforeClosingBrace: 0
+- SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation wrench
+- SlevomatCodingStandard.Commenting.ForbiddenAnnotations
+    - forbiddenAnnotations: @author, @created, @version, @package, @copyright, @license, @throws
+- SlevomatCodingStandard.Commenting.EmptyComment
+- SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration wrench
+- SlevomatCodingStandard.Commenting.UselessFunctionDocComment
+    - traversableTypeHints: default
+- SlevomatCodingStandard.Commenting.UselessInheritDocComment
+- SlevomatCodingStandard.ControlStructures.UselessIfConditionWithReturn
+    - assumeAllConditionExpressionsAreAlreadyBoolean: false
+- SlevomatCodingStandard.ControlStructures.UselessTernaryOperator
+    - assumeAllConditionExpressionsAreAlreadyBoolean: false
+
+Excluded sniffs:
+
+- SlevomatCodingStandard.Classes.SuperfluousExceptionNaming
+- SlevomatCodingStandard.ControlStructures.NewWithoutParentheses
+- SlevomatCodingStandard.ControlStructures.DisallowShortTernaryOperator
+- SlevomatCodingStandard.ControlStructures.RequireYodaComparison
+- SlevomatCodingStandard.Functions.RequireArrowFunction
+- SlevomatCodingStandard.Numbers.RequireNumericLiteralSeparator
+- SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly
+- SlevomatCodingStandard.Namespaces.UseOnlyWhitelistedNamespaces
+- SlevomatCodingStandard.Commenting.ForbiddenComments
+- SlevomatCodingStandard.Commenting.DocCommentSpacing
+- SlevomatCodingStandard.Commenting.RequireOneLinePropertyDocComment
+- SlevomatCodingStandard.Commenting.DisallowOneLinePropertyDocComment
 
 ### Custom sniffs
 
