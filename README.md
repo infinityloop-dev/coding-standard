@@ -1,8 +1,10 @@
 # Infinityloop Coding-Standard
 
-Custom ruleset for [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer).
+Custom PHP 7.4 ruleset for [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer).
 
-This ruleset uses sniffs bundled with PHPCS, numerous sniffs from [Slecomat coding-standard](https://github.com/slevomat/coding-standard), and also some of its own custom built sniffs.
+Ruleset uses sniffs bundled with PHPCS, numerous sniffs from [Slecomat coding-standard](https://github.com/slevomat/coding-standard), and also some of its own custom built sniffs.
+
+Ruleset is designed for PHP 7.4 because of specific property spacing, which is not plausible without typed properties.
 
 ## Installation
 
@@ -14,6 +16,8 @@ composer bin phpcs require infinityloop-dev/coding-standard
 ```
 
 ## Usage
+
+Running phpcs out of the box:
 
 ```
 // phpcs:
@@ -31,21 +35,60 @@ php vendor/bin/phpcbf\
     app tests
 ```
 
+Feel free to copy ruleset.xml in your project directory, customize configuration and create your own standard with this ruleset as its base.
+
 ## Description
 
 ### 97% PSR12 compatible
-- this ruleset encorces `declare(strict_types = 1);` instead of PSR's `declare(strict_types=1);` 
+- ruleset encorces `declare(strict_types = 1);` instead of PSR's `declare(strict_types=1);` 
     - one space around `=` operator
-- this ruleset enforces `function abc($param) : ReturnType` instead of PSR's `function abc($param): ReturnType` 
+- ruleset enforces `function abc($param) : ReturnType` instead of PSR's `function abc($param): ReturnType` 
     - one space before and after colon
-- this ruleset enforces `function($param) use ($use)` instaed of PSR's `function ($param) use ($use)`
+- ruleset enforces `function($param) use ($use)` instaed of PSR's `function ($param) use ($use)`
     - no space after function keyword
     
 Ruleset includes all necessary sniffs to enforce remaining PSR12 rules.
     
 ### Slevomat sniffs
 
-TODO
+#### Functional
+
+- SlevomatCodingStandard.TypeHints.ParameterTypeHint
+    - enableObjectTypeHint: true
+    - traversableTypeHints: false
+- SlevomatCodingStandard.TypeHints.PropertyTypeHint
+    - enableNativeTypeHint: true
+    - traversableTypeHints: false
+- SlevomatCodingStandard.TypeHints.ReturnTypeHint
+    - enableObjectTypeHint: true
+    - traversableTypeHints: false
+- SlevomatCodingStandard.TypeHints.UselessConstantTypeHint
+- SlevomatCodingStandard.Exceptions.ReferenceThrowableOnly
+- SlevomatCodingStandard.TypeHints.DeclareStrictTypes
+    - newlinesCountBetweenOpenTagAndDeclare: 2
+    - newlinesCountAfterDeclare: 2
+    - spacesCountAroundEqualsSign: 1
+- SlevomatCodingStandard.Arrays.DisallowImplicitArrayCreation
+- SlevomatCodingStandard.Classes.UselessLateStaticBinding
+- SlevomatCodingStandard.ControlStructures.AssignmentInCondition
+- SlevomatCodingStandard.ControlStructures.DisallowContinueWithoutIntegerOperandInSwitch
+- SlevomatCodingStandard.ControlStructures.DisallowEmpty
+- SlevomatCodingStandard.ControlStructures.RequireNullCoalesceOperator
+- SlevomatCodingStandard.ControlStructures.EarlyExit
+    - ignoreStandaloneIfInScope: true
+- SlevomatCodingStandard.Functions.StaticClosure
+- SlevomatCodingStandard.Operators.DisallowEqualOperators
+- SlevomatCodingStandard.Operators.RequireOnlyStandaloneIncrementAndDecrementOperators
+- SlevomatCodingStandard.Operators.RequireCombinedAssignmentOperator
+
+Excluded sniffs:
+
+- SlevomatCodingStandard.Classes.DisallowLateStaticBindingForConstants
+- SlevomatCodingStandard.Operators.DisallowIncrementAndDecrementOperators
+
+#### Cleaning
+
+#### Formatting
 
 ### Custom sniffs
 
