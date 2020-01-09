@@ -90,7 +90,7 @@ Excluded sniffs:
 
 #### Cleaning
 
-SlevomatCodingStandard.Classes.UnusedPrivateElements construction
+- SlevomatCodingStandard.Classes.UnusedPrivateElements construction
     - alwaysUsedPropertiesAnnotations: false
     - alwaysUsedPropertiesSuffixes: false
 - SlevomatCodingStandard.Functions.UnusedInheritedVariablePassedToClosure
