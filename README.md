@@ -40,11 +40,11 @@ Feel free to copy ruleset.xml in your project directory, customize configuration
 ## Description
 
 ### 97% PSR12 compatible
-- ruleset encorces `declare(strict_types = 1);` instead of PSR's `declare(strict_types=1);` 
+- `declare(strict_types = 1);` instead of PSR's `declare(strict_types=1);` 
     - one space around `=` operator
-- ruleset enforces `function abc($param) : ReturnType` instead of PSR's `function abc($param): ReturnType` 
+- `function abc($param) : ReturnType` instead of PSR's `function abc($param): ReturnType` 
     - one space before and after colon
-- ruleset enforces `function($param) use ($use)` instaed of PSR's `function ($param) use ($use)`
+- `function($param) use ($use)` instaed of PSR's `function ($param) use ($use)`
     - no space after function keyword
     
 Ruleset includes all necessary sniffs to enforce remaining PSR12 rules.
