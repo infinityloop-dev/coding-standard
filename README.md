@@ -2,7 +2,7 @@
 
 Custom ruleset for [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer).
 
-This standard uses sniffs bundled with PHPCS, numerous sniffs from [Slecomat coding-standard](https://github.com/slevomat/coding-standard), and also some of its own custom built sniffs.
+This ruleset uses sniffs bundled with PHPCS, numerous sniffs from [Slecomat coding-standard](https://github.com/slevomat/coding-standard), and also some of its own custom built sniffs.
 
 ## Installation
 
@@ -13,15 +13,35 @@ composer require --dev bamarni/composer-bin-plugin
 composer bin phpcs require infinityloop-dev/coding-standard
 ```
 
-## Standard description
+## Usage
+
+```
+// phpcs:
+php vendor/bin/phpcs\
+    --parallel=4\
+    --standard=vendor-bin/phpcs/vendor/infinityloop-dev/coding-standard/InfinityloopCodingStandard/ruleset.xml\
+    --extensions=php\
+    app tests
+
+// phpcbf:
+php vendor/bin/phpcbf\
+    --parallel=4\
+    --standard=vendor-bin/phpcs/vendor/infinityloop-dev/coding-standard/InfinityloopCodingStandard/ruleset.xml\
+    --extensions=php\
+    app tests
+```
+
+## Description
 
 ### 97% PSR12 compatible
-- this standard encorces `declare(strict_types = 1);` instead of PSR's `declare(strict_types=1);` 
+- this ruleset encorces `declare(strict_types = 1);` instead of PSR's `declare(strict_types=1);` 
     - one space around `=` operator
-- this standard enforces `function abc($param) : ReturnType` instead of PSR's `function abc($param): ReturnType` 
+- this ruleset enforces `function abc($param) : ReturnType` instead of PSR's `function abc($param): ReturnType` 
     - one space before and after colon
-- this standard enforces `function($param) use ($use)` instaed of PSR's `function ($param) use ($use)`
+- this ruleset enforces `function($param) use ($use)` instaed of PSR's `function ($param) use ($use)`
     - no space after function keyword
+    
+Ruleset includes all necessary sniffs to enforce remaining PSR12 rules.
     
 ### Slevomat sniffs
 
@@ -30,3 +50,6 @@ TODO
 ### Custom sniffs
 
 TODO
+
+## Example class
+
