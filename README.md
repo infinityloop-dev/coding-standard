@@ -15,7 +15,7 @@ It is designed for PHP 7.4 because of its specific property spacing, which is no
     - one space before and after colon
 - `function($param) use ($use)` instaed of PSR's `function ($param) use ($use)`
     - no space after function keyword
-- `use \Abc\Xyz\Class;` instaed of PSR's `use Abc\Xyz\Class`
+- `use \Abc\Xyz\Class;` instead of PSR's `use Abc\Xyz\Class`
     - Leading backslash in use
     
 All other necessary sniffs to enforce remaining PSR12 rules are included.
@@ -210,7 +210,6 @@ Excluded sniffs:
 - SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalFunctions
     - exclude: false
 - SlevomatCodingStandard.Namespaces.MultipleUsesPerLine
-- SlevomatCodingStandard.Namespaces.UseDoesNotStartWithBackslash
 - SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces
     - linesCountAfterOpeningBrace: 0
     - linesCountBeforeClosingBrace: 0
@@ -229,6 +228,8 @@ Excluded sniffs:
 
 Excluded sniffs:
 
+- SlevomatCodingStandard.Namespaces.UseDoesNotStartWithBackslash
+    - Custom UseDoesStartWithBackslash is used instead.
 - SlevomatCodingStandard.Classes.SuperfluousExceptionNaming
 - SlevomatCodingStandard.ControlStructures.NewWithoutParentheses
     - NewWithParentheses is used instead.
