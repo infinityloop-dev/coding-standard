@@ -2,9 +2,25 @@
 
 Custom PHP 7.4 ruleset for [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer).
 
-Ruleset uses sniffs bundled with PHPCS, numerous sniffs from [Slecomat coding-standard](https://github.com/slevomat/coding-standard), and also some of its own custom built sniffs.
+Ruleset uses sniffs bundled with PHPCS, numerous sniffs from [Slevomat coding-standard](https://github.com/slevomat/coding-standard), and also some of its own custom built sniffs.
+It is designed for PHP 7.4 because of its specific property spacing, which is not plausible without typed properties.
 
-Ruleset is designed for PHP 7.4 because of its specific property spacing, which is not plausible without typed properties.
+## Features
+
+### 97% PSR12 compatible
+
+- `declare(strict_types = 1);` instead of PSR's `declare(strict_types=1);` 
+    - one space around `=` operator
+- `function abc($param) : ReturnType` instead of PSR's `function abc($param): ReturnType` 
+    - one space before and after colon
+- `function($param) use ($use)` instaed of PSR's `function ($param) use ($use)`
+    - no space after function keyword
+    
+All other necessary sniffs to enforce remaining PSR12 rules are included.
+
+### Slevomat rules
+
+Ruleset includes vast majority of Slevomat sniffs as they're great extension of PSR12 with wider scope and stricter requirements.
 
 ## Installation
 
@@ -39,19 +55,13 @@ Feel free to copy ruleset.xml in your project directory, customize configuration
 
 ## Description
 
-### 97% PSR12 compatible
-- `declare(strict_types = 1);` instead of PSR's `declare(strict_types=1);` 
-    - one space around `=` operator
-- `function abc($param) : ReturnType` instead of PSR's `function abc($param): ReturnType` 
-    - one space before and after colon
-- `function($param) use ($use)` instaed of PSR's `function ($param) use ($use)`
-    - no space after function keyword
-    
-Ruleset includes all necessary sniffs to enforce remaining PSR12 rules.
-
 ### PHPCS sniffs
 
+We use predefined PSR12 ruleset, but some slight modifications were made. Few sniffs are replaced with more generic/configurable ones, some are configured to achieve different result - small spacing adjusments described in previous paragraph.
+
 ### Slevomat sniffs
+
+Detailed list of Slevomat sniffs with configured settings. Some sniffs are not included, either because we dont find them helpful, the are too strict, or collide with their counter-sniff (require/disallow pairs).
 
 #### Functional
 
@@ -90,7 +100,7 @@ Excluded sniffs:
 
 #### Cleaning
 
-- SlevomatCodingStandard.Classes.UnusedPrivateElements
+SlevomatCodingStandard.Classes.UnusedPrivateElements construction
     - alwaysUsedPropertiesAnnotations: false
     - alwaysUsedPropertiesSuffixes: false
 - SlevomatCodingStandard.Functions.UnusedInheritedVariablePassedToClosure
@@ -103,7 +113,7 @@ Excluded sniffs:
 - SlevomatCodingStandard.Namespaces.UseFromSameNamespace
 - SlevomatCodingStandard.Namespaces.UselessAlias
 - SlevomatCodingStandard.PHP.RequireExplicitAssertion
-- SlevomatCodingStandard.PHP.RequireNowdoc
+- SlevomatCodingStandard.PHP.RequireNowdoc wrench
 - SlevomatCodingStandard.PHP.UselessParentheses
     - ignoreComplexTernaryConditions: true
 - SlevomatCodingStandard.PHP.OptimizedFunctionsWithoutUnpacking
@@ -120,14 +130,14 @@ Excluded sniffs:
 
 #### Formatting
 
-- SlevomatCodingStandard.Arrays.TrailingArrayComma
+- SlevomatCodingStandard.Arrays.TrailingArrayComma wrench
     - enableAfterHeredoc: false
 - SlevomatCodingStandard.Classes.ModernClassNameReference
 - SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming
 - SlevomatCodingStandard.Classes.SuperfluousInterfaceNaming
 - SlevomatCodingStandard.Classes.SuperfluousTraitNaming
 - SlevomatCodingStandard.Classes.TraitUseDeclaration
-- SlevomatCodingStandard.Classes.TraitUseSpacing
+- SlevomatCodingStandard.Classes.TraitUseSpacing wrench
     - linesCountBeforeFirstUse: 0
     - linesCountBetweenUses: 0
     - linesCountAfterLastUse: 1
@@ -175,9 +185,9 @@ Excluded sniffs:
 - SlevomatCodingStandard.TypeHints.DisallowArrayTypeHintSyntax
     - traversableTypeHints: default
 - SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint
-- SlevomatCodingStandard.TypeHints.LongTypeHints
+- SlevomatCodingStandard.TypeHints.LongTypeHints wrench
 - SlevomatCodingStandard.TypeHints.NullTypeHintOnLastPosition
-- SlevomatCodingStandard.PHP.ShortList
+- SlevomatCodingStandard.PHP.ShortList wrench
 - SlevomatCodingStandard.PHP.TypeCast
 - SlevomatCodingStandard.Files.TypeNameMatchesFileName
 - SlevomatCodingStandard.Classes.ClassConstantVisibility
@@ -185,28 +195,28 @@ Excluded sniffs:
 - SlevomatCodingStandard.TypeHints.ReturnTypeHintSpacing
     - spacesCountBeforeColon: 1
 - SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue
-- SlevomatCodingStandard.TypeHints.ParameterTypeHintSpacing
-- SlevomatCodingStandard.TypeHints.PropertyTypeHintSpacing
+- SlevomatCodingStandard.TypeHints.ParameterTypeHintSpacing wrench
+- SlevomatCodingStandard.TypeHints.PropertyTypeHintSpacing wrench
 - SlevomatCodingStandard.Namespaces.DisallowGroupUse
 - SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameAfterKeyword
     - keywordsToCheck: T_EXTENDS, T_IMPLEMENETS, T_USE, T_NEW, T_THROW
 - SlevomatCodingStandard.Namespaces.FullyQualifiedExceptions
-    - specialExceptionNames: []
+    - specialExceptionNames: false
     - ignoredNames: default
 - SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalConstants
-    - exclude: []
+    - exclude: false
 - SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalFunctions
-    - exclude: []
+    - exclude: false
 - SlevomatCodingStandard.Namespaces.MultipleUsesPerLine
-- SlevomatCodingStandard.Namespaces.UseDoesNotStartWithBackslash
-- SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces
+- SlevomatCodingStandard.Namespaces.UseDoesNotStartWithBackslash wrench
+- SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces wrench
     - linesCountAfterOpeningBrace: 0
     - linesCountBeforeClosingBrace: 0
-- SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation
+- SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation wrench
 - SlevomatCodingStandard.Commenting.ForbiddenAnnotations
     - forbiddenAnnotations: @author, @created, @version, @package, @copyright, @license, @throws
 - SlevomatCodingStandard.Commenting.EmptyComment
-- SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration
+- SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration wrench
 - SlevomatCodingStandard.Commenting.UselessFunctionDocComment
     - traversableTypeHints: default
 - SlevomatCodingStandard.Commenting.UselessInheritDocComment
@@ -219,16 +229,24 @@ Excluded sniffs:
 
 - SlevomatCodingStandard.Classes.SuperfluousExceptionNaming
 - SlevomatCodingStandard.ControlStructures.NewWithoutParentheses
+    - NewWithParentheses is used instead.
 - SlevomatCodingStandard.ControlStructures.DisallowShortTernaryOperator
+    - RequireShortTernaryOperator is used instead.
 - SlevomatCodingStandard.ControlStructures.RequireYodaComparison
+    - DisallowYodaComparison is used instead.
 - SlevomatCodingStandard.Functions.RequireArrowFunction
+    - DisallowArrowFunction is used instead.
 - SlevomatCodingStandard.Numbers.RequireNumericLiteralSeparator
+    - DisallowNumericLiteralSeparator is used instead.
 - SlevomatCodingStandard.Namespaces.ReferenceUsedNamesOnly
 - SlevomatCodingStandard.Namespaces.UseOnlyWhitelistedNamespaces
 - SlevomatCodingStandard.Commenting.ForbiddenComments
 - SlevomatCodingStandard.Commenting.DocCommentSpacing
+    - This sniff clashed with some other sniffs and caused some FAILED TO FIX errors.
 - SlevomatCodingStandard.Commenting.RequireOneLinePropertyDocComment
+    - Property doc comments are replaced by typed proeprties.
 - SlevomatCodingStandard.Commenting.DisallowOneLinePropertyDocComment
+    - Property doc comments are replaced by typed proeprties.
 
 ### Custom sniffs
 
