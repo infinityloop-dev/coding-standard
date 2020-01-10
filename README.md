@@ -7,39 +7,11 @@ It is designed for PHP 7.4 because of its specific property spacing, which is no
 
 ## Features
 
-### 97% PSR12 compatible
-
-- `declare(strict_types = 1);` instead of PSR's `declare(strict_types=1);` 
-    - one space around `=` operator
-- `function abc($param) : ReturnType` instead of PSR's `function abc($param): ReturnType` 
-    - one space before and after colon
-- `function($param) use ($use)` instaed of PSR's `function ($param) use ($use)`
-    - no space after function keyword
-- `use \Abc\Xyz\Class;` instead of PSR's `use Abc\Xyz\Class`
-    - Leading backslash in use
-    - Although import names must already be fully qualified, we believe that using FQN is more logical here.
-    
-All other necessary sniffs to enforce remaining PSR12 rules are included.
-
-### Slevomat rules
-
-Ruleset includes vast majority of Slevomat sniffs as they're great extension of PSR12 with wider scope and stricter requirements.
-
-### Custom rules
-
-Package also includes its own sniffs with more additional checks.
-
-#### InfinityloopCodingStandard.Classes.FinalClassVisibility :wrench:
-
-When class is final and doesnt extend any other class, it's safe to change visibility of all protected functions/properties to private.
-
-#### InfinityloopCodingStandard.Namespaces.UseDoesStartWithBackslash :wrench:
-
-Inverted `SlevomatCodingStandard.Namespaces.UseDoesNotStartWithBackslash` sniff - require imports to start with backslash.
-
-#### InfinityloopCodingStandard.Classes.ClassStructure :wrench:
-
-
+- 97% PSR12 compatible
+- Slevomat rules
+    - Ruleset includes vast majority of Slevomat sniffs as they're great extension of PSR12 with wider scope and stricter requirements.
+- Custome rules
+    - Package also introduces its own sniffs with more additional checks.
 
 ## Installation
 
@@ -74,9 +46,33 @@ Feel free to copy ruleset.xml in your project directory, customize configuration
 
 ## Description
 
-### PHPCS sniffs
+### PHPCS sniffs - PSR12 ruleset
 
-We use predefined PSR12 ruleset, but some slight modifications were made. Few sniffs are replaced with more generic/configurable ones, some are configured to achieve different result - small spacing adjusments described in previous paragraph.
+We use PHP_Codesniffers predefined PSR12 ruleset, but some slight modifications were made. Few sniffs are replaced with more generic/configurable ones and some are configured to achieve different result.
+
+- `declare(strict_types = 1);` instead of PSR's `declare(strict_types=1);` 
+    - one space around `=` operator
+- `function abc($param) : ReturnType` instead of PSR's `function abc($param): ReturnType` 
+    - one space before and after colon
+- `function($param) use ($use)` instaed of PSR's `function ($param) use ($use)`
+    - no space after function keyword
+- `use \Abc\Xyz\Class;` instead of PSR's `use Abc\Xyz\Class`
+    - Leading backslash in use
+    - Although import names must already be fully qualified, we believe that using FQN is more logical here.
+    
+All other necessary sniffs to enforce remaining PSR12 rules are included.
+
+### Custom sniffs
+
+#### InfinityloopCodingStandard.Classes.FinalClassVisibility :wrench:
+
+When class is final and doesnt extend any other class, it's safe to change visibility of all protected functions/properties to private.
+
+#### InfinityloopCodingStandard.Namespaces.UseDoesStartWithBackslash :wrench:
+
+Inverted `SlevomatCodingStandard.Namespaces.UseDoesNotStartWithBackslash` sniff - require imports to start with backslash.
+
+#### InfinityloopCodingStandard.Classes.ClassStructure :wrench:
 
 ### Slevomat sniffs
 
@@ -266,10 +262,3 @@ Excluded sniffs:
     - Property doc comments are replaced by typed proeprties.
 - SlevomatCodingStandard.Commenting.DisallowOneLinePropertyDocComment
     - Property doc comments are replaced by typed proeprties.
-
-### Custom sniffs
-
-TODO
-
-## Example class
-
