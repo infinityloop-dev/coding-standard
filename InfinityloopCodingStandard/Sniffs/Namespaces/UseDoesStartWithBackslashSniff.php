@@ -14,7 +14,7 @@ use const T_USE;
 
 class UseDoesNotStartWithBackslashSniff implements Sniff
 {
-	public const CODE_DOESNT_START_WITH_BACKSLASH = 'UseDoesntStartWithBackslash';
+	public const CODE_DOES_NOT_START_WITH_BACKSLASH = 'UseDoesNotStartWithBackslash';
 
 	/**
 	 * @return (int|string)[]
@@ -59,7 +59,7 @@ class UseDoesNotStartWithBackslashSniff implements Sniff
 		$fix = $phpcsFile->addFixableError(
 			'Use statement must start with a backslash.',
 			$nextTokenPointer,
-			self::CODE_DOESNT_START_WITH_BACKSLASH
+			self::CODE_DOES_NOT_START_WITH_BACKSLASH
 		);
         
 		if (!$fix) {
