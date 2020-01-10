@@ -52,7 +52,7 @@ class UseDoesNotStartWithBackslashSniff implements Sniff
 			$nextTokenPointer = TokenHelper::findNextEffective($phpcsFile, $nextTokenPointer + 1);
 		}
         
-		if (!$tokens[$nextTokenPointer]['code'] !== T_NS_SEPARATOR) {
+		if ($tokens[$nextTokenPointer]['code'] === T_NS_SEPARATOR) {
 			return;
 		}
         
