@@ -10,20 +10,17 @@
     <file>./../</file>
     <exclude-pattern>*/tests/*/data/*</exclude-pattern>
     <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/vendor-bin/*</exclude-pattern>
 
     <rule ref="PSR12">
-        <!-- SlevomatCodingStandard.TypeHints.DeclareStrictTypes -->
         <exclude name="PSR12.Files.DeclareStatement"/>
-        <!-- SlevomatCodingStandard.TypeHints.ReturnTypeHintSpacing -->
         <exclude name="PSR12.Functions.ReturnTypeDeclaration"/>
         <exclude name="PSR12.ControlStructures.ControlStructureSpacing.FirstExpressionLine"/>
         <exclude name="PSR12.ControlStructures.ControlStructureSpacing.CloseParenthesisLine"/>
-        <!-- space after closing bracked should be checked depending on where function is called, not as part of the function call -->
+        <exclude name="PSR12.Files.ImportStatement.LeadingSlash"/>
         <exclude name="PSR2.Methods.FunctionCallSignature.SpaceAfterCloseBracket"/>
         <exclude name="PSR2.ControlStructures.ControlStructureSpacing.SpacingAfterOpenBrace"/>
-        <!-- checked by SlevomatCodingStandard.Namespaces.UseSpacing -->
         <exclude name="PSR2.Namespaces.UseDeclaration.SpaceAfterLastUse"/>
-        <!-- checked by SlevomatCodingStandard.Namespaces.NamespaceSpacing -->
         <exclude name="PSR2.Namespaces.NamespaceDeclaration.BlankLineAfter"/>
     </rule>
     <rule ref="Generic.CodeAnalysis.EmptyStatement">
