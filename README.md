@@ -15,6 +15,8 @@ It is designed for PHP 7.4 because of its specific property spacing, which is no
     - one space before and after colon
 - `function($param) use ($use)` instaed of PSR's `function ($param) use ($use)`
     - no space after function keyword
+- `use \Abc\Xyz\Class;` instaed of PSR's `use Abc\Xyz\Class`
+    - Leading backslash in use
     
 All other necessary sniffs to enforce remaining PSR12 rules are included.
 
