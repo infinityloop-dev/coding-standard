@@ -21,6 +21,11 @@ use const T_VARIABLE;
  */
 class FinalClassVisibilitySniff implements Sniff
 {
+    /**
+     * @var bool
+     */
+    public $ignoreInheritingClasses = true;
+
     public function register() : array
     {
         return [
@@ -46,13 +51,18 @@ class FinalClassVisibilitySniff implements Sniff
             return;
         }
 
+        $extendsPointer = $phpcsFile->findNext(T_EXTENDS, $classPointer);
+        if($this->ignoreInheritingClasses && $tokens[$extendsPointer]['code'] === T_EXTENDS) {
+            return;
+        }
+
         $visibilityPointer = $this->findVisibilityPointer($phpcsFile, $variablePointer);
         if ($visibilityPointer === null || $tokens[$visibilityPointer]['code'] !== T_PROTECTED) {
             return;
         }
 
         $fix = $phpcsFile->addFixableError(
-            'Protected variables and function inside final class are forbidden',
+            'Protected variables and functions inside final class are forbidden',
             $variablePointer,
             'FinalClassVisibility'
         );
@@ -68,13 +78,10 @@ class FinalClassVisibilitySniff implements Sniff
 
     private function findVisibilityPointer(File $phpcsFile, $variablePointer)
     {
-        $tokens = $phpcsFile->getTokens();
+        $visibilityPointer = $phpcsFile->findPrevious([T_PUBLIC, T_PROTECTED, T_PRIVATE], $variablePointer);
 
-        for($i = 1; $i <= 3; $i++){
-            $visibilityPointer = TokenHelper::findPreviousEffective($phpcsFile, $variablePointer - $i);
-            if (in_array($tokens[$visibilityPointer]['code'], [T_PUBLIC, T_PROTECTED, T_PRIVATE], true)) {
-                return $visibilityPointer;
-            }
+        if(\in_array($phpcsFile->getTokens()[$visibilityPointer]['code'], [T_PUBLIC, T_PROTECTED, T_PRIVATE], true)){
+            return $visibilityPointer;
         }
 
         return null;
