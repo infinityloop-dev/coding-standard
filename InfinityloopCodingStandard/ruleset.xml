@@ -117,12 +117,7 @@
             <property name="linesCountBeforeClosingBrace" value="0"/>
         </properties>
     </rule>
-    <rule ref="SlevomatCodingStandard.Classes.UnusedPrivateElements">
-        <properties>
-            <property name="alwaysUsedPropertiesAnnotations" value="false"/>
-            <property name="alwaysUsedPropertiesSuffixes" value="false"/>
-        </properties>
-    </rule>
+    <rule ref="SlevomatCodingStandard.Classes.UnusedPrivateElements"/>
 
     <rule ref="SlevomatCodingStandard.Classes.SuperfluousTraitNaming"/>
     <rule ref="SlevomatCodingStandard.Classes.ModernClassNameReference"/>
@@ -346,19 +341,16 @@
     <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint">
         <properties>
             <property name="enableObjectTypeHint" value="true"/>
-            <property name="traversableTypeHints" value="false"/>
         </properties>
     </rule>
     <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint">
         <properties>
             <property name="enableNativeTypeHint" value="true"/>
-            <property name="traversableTypeHints" value="false"/>
         </properties>
     </rule>
     <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint">
         <properties>
             <property name="enableObjectTypeHint" value="true"/>
-            <property name="traversableTypeHints" value="false"/>
         </properties>
     </rule>
     <rule ref="SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint">
