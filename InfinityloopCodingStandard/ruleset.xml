@@ -279,7 +279,6 @@
     <rule ref="SlevomatCodingStandard.Namespaces.DisallowGroupUse"/>
     <rule ref="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation"/>
     <rule ref="SlevomatCodingStandard.Namespaces.MultipleUsesPerLine"/>
-    <rule ref="SlevomatCodingStandard.Namespaces.UseDoesNotStartWithBackslash"/>
     <rule ref="SlevomatCodingStandard.Namespaces.NamespaceDeclaration"/>
     <rule ref="SlevomatCodingStandard.Namespaces.NamespaceSpacing">
         <properties>
@@ -498,4 +497,5 @@
     </rule>
     <rule ref="InfinityloopCodingStandard.Classes.FinalClassVisibility"/>
     <rule ref="InfinityloopCodingStandard.Classes.ClassStructure"/>
+    <rule ref="InfinityloopCodingStandard.Namespaces.UseDoesStartWithBackslash"/>
 </ruleset>
