@@ -100,7 +100,7 @@ Excluded sniffs:
 
 #### Cleaning
 
-SlevomatCodingStandard.Classes.UnusedPrivateElements construction
+- SlevomatCodingStandard.Classes.UnusedPrivateElements
     - alwaysUsedPropertiesAnnotations: false
     - alwaysUsedPropertiesSuffixes: false
 - SlevomatCodingStandard.Functions.UnusedInheritedVariablePassedToClosure
@@ -113,7 +113,7 @@ SlevomatCodingStandard.Classes.UnusedPrivateElements construction
 - SlevomatCodingStandard.Namespaces.UseFromSameNamespace
 - SlevomatCodingStandard.Namespaces.UselessAlias
 - SlevomatCodingStandard.PHP.RequireExplicitAssertion
-- SlevomatCodingStandard.PHP.RequireNowdoc wrench
+- SlevomatCodingStandard.PHP.RequireNowdoc
 - SlevomatCodingStandard.PHP.UselessParentheses
     - ignoreComplexTernaryConditions: true
 - SlevomatCodingStandard.PHP.OptimizedFunctionsWithoutUnpacking
@@ -130,14 +130,14 @@ Excluded sniffs:
 
 #### Formatting
 
-- SlevomatCodingStandard.Arrays.TrailingArrayComma wrench
+- SlevomatCodingStandard.Arrays.TrailingArrayComma
     - enableAfterHeredoc: false
 - SlevomatCodingStandard.Classes.ModernClassNameReference
 - SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming
 - SlevomatCodingStandard.Classes.SuperfluousInterfaceNaming
 - SlevomatCodingStandard.Classes.SuperfluousTraitNaming
 - SlevomatCodingStandard.Classes.TraitUseDeclaration
-- SlevomatCodingStandard.Classes.TraitUseSpacing wrench
+- SlevomatCodingStandard.Classes.TraitUseSpacing
     - linesCountBeforeFirstUse: 0
     - linesCountBetweenUses: 0
     - linesCountAfterLastUse: 1
@@ -185,9 +185,9 @@ Excluded sniffs:
 - SlevomatCodingStandard.TypeHints.DisallowArrayTypeHintSyntax
     - traversableTypeHints: default
 - SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint
-- SlevomatCodingStandard.TypeHints.LongTypeHints wrench
+- SlevomatCodingStandard.TypeHints.LongTypeHints
 - SlevomatCodingStandard.TypeHints.NullTypeHintOnLastPosition
-- SlevomatCodingStandard.PHP.ShortList wrench
+- SlevomatCodingStandard.PHP.ShortList
 - SlevomatCodingStandard.PHP.TypeCast
 - SlevomatCodingStandard.Files.TypeNameMatchesFileName
 - SlevomatCodingStandard.Classes.ClassConstantVisibility
@@ -195,8 +195,8 @@ Excluded sniffs:
 - SlevomatCodingStandard.TypeHints.ReturnTypeHintSpacing
     - spacesCountBeforeColon: 1
 - SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue
-- SlevomatCodingStandard.TypeHints.ParameterTypeHintSpacing wrench
-- SlevomatCodingStandard.TypeHints.PropertyTypeHintSpacing wrench
+- SlevomatCodingStandard.TypeHints.ParameterTypeHintSpacing
+- SlevomatCodingStandard.TypeHints.PropertyTypeHintSpacing
 - SlevomatCodingStandard.Namespaces.DisallowGroupUse
 - SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameAfterKeyword
     - keywordsToCheck: T_EXTENDS, T_IMPLEMENETS, T_USE, T_NEW, T_THROW
@@ -208,15 +208,15 @@ Excluded sniffs:
 - SlevomatCodingStandard.Namespaces.FullyQualifiedGlobalFunctions
     - exclude: false
 - SlevomatCodingStandard.Namespaces.MultipleUsesPerLine
-- SlevomatCodingStandard.Namespaces.UseDoesNotStartWithBackslash wrench
-- SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces wrench
+- SlevomatCodingStandard.Namespaces.UseDoesNotStartWithBackslash
+- SlevomatCodingStandard.Classes.EmptyLinesAroundClassBraces
     - linesCountAfterOpeningBrace: 0
     - linesCountBeforeClosingBrace: 0
-- SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation wrench
+- SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation
 - SlevomatCodingStandard.Commenting.ForbiddenAnnotations
     - forbiddenAnnotations: @author, @created, @version, @package, @copyright, @license, @throws
 - SlevomatCodingStandard.Commenting.EmptyComment
-- SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration wrench
+- SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration
 - SlevomatCodingStandard.Commenting.UselessFunctionDocComment
     - traversableTypeHints: default
 - SlevomatCodingStandard.Commenting.UselessInheritDocComment
