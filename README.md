@@ -191,7 +191,6 @@ Excluded sniffs:
 - SlevomatCodingStandard.TypeHints.NullTypeHintOnLastPosition
 - SlevomatCodingStandard.PHP.ShortList
 - SlevomatCodingStandard.PHP.TypeCast
-- SlevomatCodingStandard.Files.TypeNameMatchesFileName
 - SlevomatCodingStandard.Classes.ClassConstantVisibility
     - fixable: true
 - SlevomatCodingStandard.TypeHints.ReturnTypeHintSpacing

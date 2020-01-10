@@ -38,7 +38,6 @@
             <property name="eolChar" value="\n"/>
         </properties>
     </rule>
-    <rule ref="SlevomatCodingStandard.Files.TypeNameMatchesFileName"/>
     <rule ref="Generic.Formatting.DisallowMultipleStatements"/>
     <rule ref="Generic.Formatting.SpaceAfterCast"/>
     <rule ref="Generic.Functions.OpeningFunctionBraceBsdAllman"/>
