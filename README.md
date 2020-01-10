@@ -17,12 +17,29 @@ It is designed for PHP 7.4 because of its specific property spacing, which is no
     - no space after function keyword
 - `use \Abc\Xyz\Class;` instead of PSR's `use Abc\Xyz\Class`
     - Leading backslash in use
+    - Although import names must already be fully qualified, we believe that using FQN is more logical here.
     
 All other necessary sniffs to enforce remaining PSR12 rules are included.
 
 ### Slevomat rules
 
 Ruleset includes vast majority of Slevomat sniffs as they're great extension of PSR12 with wider scope and stricter requirements.
+
+### Custom rules
+
+Package also includes its own sniffs with more additional checks.
+
+#### InfinityloopCodingStandard.Classes.FinalClassVisibility :wrench:
+
+When class is final and doesnt extend any other class, it's safe to change visibility of all protected functions/properties to private.
+
+#### InfinityloopCodingStandard.Namespaces.UseDoesStartWithBackslash :wrench:
+
+Inverted `SlevomatCodingStandard.Namespaces.UseDoesNotStartWithBackslash` sniff - require imports to start with backslash.
+
+#### InfinityloopCodingStandard.Classes.ClassStructure :wrench:
+
+
 
 ## Installation
 
