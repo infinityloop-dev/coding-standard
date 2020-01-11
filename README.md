@@ -151,6 +151,7 @@ Excluded sniffs:
 - SlevomatCodingStandard.Classes.SuperfluousAbstractClassNaming
 - SlevomatCodingStandard.Classes.SuperfluousInterfaceNaming
 - SlevomatCodingStandard.Classes.SuperfluousTraitNaming
+- SlevomatCodingStandard.Classes.SuperfluousExceptionNaming
 - SlevomatCodingStandard.Classes.TraitUseDeclaration
 - SlevomatCodingStandard.Classes.TraitUseSpacing
     - linesCountBeforeFirstUse: 0
@@ -242,7 +243,6 @@ Excluded sniffs:
 
 - SlevomatCodingStandard.Namespaces.UseDoesNotStartWithBackslash
     - Custom UseDoesStartWithBackslash is used instead.
-- SlevomatCodingStandard.Classes.SuperfluousExceptionNaming
 - SlevomatCodingStandard.ControlStructures.NewWithoutParentheses
     - NewWithParentheses is used instead.
 - SlevomatCodingStandard.ControlStructures.DisallowShortTernaryOperator
