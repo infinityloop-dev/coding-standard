@@ -7,7 +7,6 @@
     <arg name="colors"/>
     <arg value="s"/> <!-- Display name of sniff used to detect/fix issue -->
     <arg value="p"/> <!-- Display progress -->
-    <config name="installed_paths" value="../../slevomat/coding-standard"/><!-- relative path from PHPCS source location -->
     <file>./../../../../../../app</file> <!-- Files to check - relative from ruleset location -->
     <file>./../../../../../../bin</file>
     <file>./../../../../../../tests</file>
