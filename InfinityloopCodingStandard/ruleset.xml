@@ -477,5 +477,5 @@
     </rule>
     <rule ref="InfinityloopCodingStandard.Classes.FinalClassVisibility"/>
     <rule ref="InfinityloopCodingStandard.Classes.ClassStructure"/>
-    <rule ref="InfinityloopCodingStandard.Namespaces.UseDoesStartWithBackslash"/>
+    <rule ref="InfinityloopCodingStandard.Namespaces.UseDoesNotStartWithBackslash"/>
 </ruleset>
