@@ -137,9 +137,7 @@ class ClassStructureSniff implements Sniff
         self::STAGE_MAGIC_METHODS => 200,
     ];
 
-    /**
-     * @return int[]
-     */
+    /** @return array<int|string, int|string> */
     public function register() : array
     {
         return Tokens::$ooScopeTokens;
@@ -148,22 +146,78 @@ class ClassStructureSniff implements Sniff
     /**
      * @param int $pointer
      *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
     public function process(File $file, $pointer) : int
     {
         $tokens = $file->getTokens();
         $rootScopeToken = $tokens[$pointer];
-        $rootScopeOpenerPointer = $rootScopeToken['scope_opener'];
-        $rootScopeCloserPointer = $rootScopeToken['scope_closer'];
 
+        $stageLastMemberPointer = $rootScopeToken['scope_opener'];
+        $expectedStage = self::STAGE_NONE;
+        $stagesFirstMembers = [];
+        while (true) {
+            $nextStage = $this->findNextStage($file, $stageLastMemberPointer, $rootScopeToken);
+            if ($nextStage === null) {
+                break;
+            }
+
+            [$stageFirstMemberPointer, $stageLastMemberPointer, $stage] = $nextStage;
+
+            if ($this->requiredOrder[$stage] >= $this->requiredOrder[$expectedStage]) {
+                $stagesFirstMembers[$stage] = $stageFirstMemberPointer;
+                $expectedStage = $stage;
+
+                continue;
+            }
+
+            $fix = $file->addFixableError(
+                sprintf('The placement of %s stage is invalid.', self::STAGE_TOKEN_NAMES[$stage]),
+                $stageFirstMemberPointer,
+                self::CODE_INVALID_STAGE_PLACEMENT
+            );
+            if (! $fix) {
+                continue;
+            }
+
+            foreach ($stagesFirstMembers as $memberStage => $firstMemberPointer) {
+                if ($this->requiredOrder[$memberStage] <= $this->requiredOrder[$stage]) {
+                    continue;
+                }
+
+                $this->fixInvalidStagePlacement(
+                    $file,
+                    $stageFirstMemberPointer,
+                    $stageLastMemberPointer,
+                    $firstMemberPointer
+                );
+
+                return $pointer - 1; // run the sniff again to fix the rest of the stages
+            }
+        }
+
+        return $pointer + 1;
+    }
+
+    /**
+     * @param mixed[] $rootScopeToken
+     *
+     * @return array{int, int, int}|null
+     */
+    private function findNextStage(File $file, int $pointer, array $rootScopeToken) : ?array
+    {
+        $tokens = $file->getTokens();
         $stageTokenTypes = [T_USE, T_CONST, T_VAR, T_STATIC, T_PUBLIC, T_PROTECTED, T_PRIVATE, T_FUNCTION];
 
-        $currentTokenPointer = $rootScopeOpenerPointer + 1;
-        $expectedStage = self::STAGE_NONE;
-        do {
-            $currentTokenPointer = $file->findNext($stageTokenTypes, $currentTokenPointer, $rootScopeCloserPointer);
-            if (is_bool($currentTokenPointer)) {
+        $currentTokenPointer = $pointer;
+        while (true) {
+            $currentTokenPointer = TokenHelper::findNext(
+                $file,
+                $stageTokenTypes,
+                $currentToken['scope_closer'] ?? $currentTokenPointer + 1,
+                $rootScopeToken['scope_closer']
+            );
+            if ($currentTokenPointer === null) {
                 break;
             }
 
@@ -173,27 +227,30 @@ class ClassStructureSniff implements Sniff
             }
 
             $stage = $this->getStageForToken($file, $currentTokenPointer);
-            if ($stage !== null) {
-                if ($this->requiredOrder[$stage] < $this->requiredOrder[$expectedStage]) {
-                    $fix = $file->addFixableError(
-                        sprintf('The placement of %s is invalid.', self::STAGE_TOKEN_NAMES[$stage]),
-                        $currentTokenPointer,
-                        self::CODE_INVALID_MEMBER_PLACEMENT
-                    );
-                    if ($fix) {
-                        $this->fixInvalidMemberPlacement($file, $currentTokenPointer);
-
-                        return $pointer - 1; // run the sniff again to fix members one by one
-                    }
-                } elseif ($this->requiredOrder[$stage] > $this->requiredOrder[$expectedStage]) {
-                    $expectedStage = $stage;
-                }
+            if ($stage === null) {
+                continue;
             }
 
-            $currentTokenPointer = $currentToken['scope_closer'] ?? $currentTokenPointer + 1;
-        } while ($currentTokenPointer !== false);
+            if (! isset($currentStage)) {
+                $currentStage = $stage;
+                $stageFirstMemberPointer = $currentTokenPointer;
+            }
 
-        return $pointer + 1;
+            if ($stage !== $currentStage) {
+                break;
+            }
+
+            $stageLastMemberPointer = $currentTokenPointer;
+        }
+
+        if (! isset($currentStage)) {
+            return null;
+        }
+
+        assert(isset($stageFirstMemberPointer) === true);
+        assert(isset($stageLastMemberPointer) === true);
+
+        return [$stageFirstMemberPointer, $stageLastMemberPointer, $currentStage];
     }
 
     private function getStageForToken(File $file, int $pointer) : ?int
@@ -213,6 +270,7 @@ class ClassStructureSniff implements Sniff
                         return self::STAGE_PRIVATE_CONSTANTS;
                 }
 
+            // https://github.com/squizlabs/PHP_CodeSniffer/issues/2800
             case T_FUNCTION:
                 $name = strtolower($tokens[$file->findNext(T_STRING, $pointer + 1)]['content']);
                 if (array_key_exists($name, self::SPECIAL_METHODS)) {
@@ -233,6 +291,7 @@ class ClassStructureSniff implements Sniff
                         return $isStatic ? self::STAGE_PRIVATE_STATIC_METHODS : self::STAGE_PRIVATE_METHODS;
                 }
 
+            // https://github.com/squizlabs/PHP_CodeSniffer/issues/2800
             default:
                 $nextPointer = TokenHelper::findNextEffective($file, $pointer + 1);
                 if ($tokens[$nextPointer]['code'] !== T_VARIABLE) {
@@ -270,7 +329,7 @@ class ClassStructureSniff implements Sniff
             $visibility = $tokens[$prevPointer]['code'];
         }
 
-        return $visibility ?? T_PUBLIC;
+        return (int) ($visibility ?? T_PUBLIC);
     }
 
     private function isMemberStatic(File $file, int $pointer) : bool
@@ -284,7 +343,7 @@ class ClassStructureSniff implements Sniff
 
     private function isStaticConstructor(File $file, int $pointer, bool $isStatic) : bool
     {
-        if (!$isStatic) {
+        if (! $isStatic) {
             return false;
         }
 
@@ -317,89 +376,83 @@ class ClassStructureSniff implements Sniff
         return ClassHelper::getName($file, $classPointer);
     }
 
-    private function fixInvalidMemberPlacement(File $file, int $pointer) : void
-    {
+    private function fixInvalidStagePlacement(
+        File $file,
+        int $stageFirstMemberPointer,
+        int $stageLastMemberPointer,
+        int $nextStageMemberPointer
+    ) : void {
         $tokens = $file->getTokens();
-        $endTypes = [T_OPEN_CURLY_BRACKET, T_CLOSE_CURLY_BRACKET, T_SEMICOLON];
-        $previousMemberEndPointer = TokenHelper::findPrevious($file, $endTypes, $pointer - 1);
-        if ($previousMemberEndPointer === null) {
-            throw new RuntimeException('Previous member end pointer not found');
-        }
 
-        $startPointer = $this->findMemberLineStartPointer($file, $pointer, $previousMemberEndPointer);
+        $previousMemberEndPointer = $this->findPreviousMemberEndPointer($file, $stageFirstMemberPointer);
 
-        if ($tokens[$pointer]['code'] === T_FUNCTION && ! FunctionHelper::isAbstract($file, $pointer)) {
-            $endPointer = $tokens[$pointer]['scope_closer'];
-        } else {
-            $endPointer = TokenHelper::findNext($file, T_SEMICOLON, $pointer + 1);
-            if ($endPointer === null) {
-                throw new RuntimeException('End pointer not found');
-            }
-        }
+        $stageStartPointer = $this->findStageStartPointer($file, $stageFirstMemberPointer, $previousMemberEndPointer);
+        $stageEndPointer = $this->findStageEndPointer($file, $stageLastMemberPointer);
 
-        $possibleWhitespaceTypes = [T_COMMENT, T_DOC_COMMENT, T_DOC_COMMENT_WHITESPACE, T_WHITESPACE];
-        $whitespacePointer = $file->findNext($possibleWhitespaceTypes, $endPointer + 1, null, false, "\n");
-        $nextEffectivePointer = TokenHelper::findNextEffective($file, $endPointer + 1);
-        if ($whitespacePointer < $nextEffectivePointer) {
-            $endPointer = $whitespacePointer;
-        }
+        $nextStageMemberStartPointer = $this->findStageStartPointer($file, $nextStageMemberPointer);
 
-        if ($tokens[$previousMemberEndPointer]['code'] === T_CLOSE_CURLY_BRACKET) {
-            $previousScopeOpenerPointer = $tokens[$previousMemberEndPointer]['scope_opener'];
-            $prePreviousMemberEndPointer = TokenHelper::findPrevious($file, $endTypes, $previousScopeOpenerPointer - 1);
-        } else {
-            $prePreviousMemberEndPointer = TokenHelper::findPrevious($file, $endTypes, $previousMemberEndPointer - 1);
-        }
-
-        if ($prePreviousMemberEndPointer === null) {
-            throw new RuntimeException('Pre-previous member end pointer not found');
-        }
-
-        $previousMemberStartPointer = TokenHelper::findNextEffective($file, $prePreviousMemberEndPointer + 1);
-        if ($previousMemberStartPointer === null) {
-            throw new RuntimeException('Previous member start pointer not found');
-        }
-
-        $previousMemberStartPointer = $this->findMemberLineStartPointer(
-            $file,
-            $previousMemberStartPointer,
-            $prePreviousMemberEndPointer
-        );
-
-        $linesBetween = (int) $tokens[$startPointer]['line'] - (int) $tokens[$previousMemberEndPointer]['line'] - 1;
+        $linesBetween = $tokens[$stageStartPointer]['line'] - $tokens[$previousMemberEndPointer]['line'];
 
         $file->fixer->beginChangeset();
 
         $content = '';
-        for ($i = $startPointer; $i <= $endPointer; $i++) {
+        for ($i = $stageStartPointer; $i <= $stageEndPointer; $i++) {
             $content .= $tokens[$i]['content'];
             $file->fixer->replaceToken($i, '');
         }
 
-        $this->removeBlankLinesAfterMember($file, $linesBetween, $previousMemberEndPointer, $startPointer);
+        $this->removeBlankLinesAfterMember($file, $linesBetween, $previousMemberEndPointer, $stageStartPointer);
 
         $newLines = str_repeat($file->eolChar, $linesBetween);
-        $file->fixer->addContentBefore($previousMemberStartPointer, $content . $newLines);
+        $file->fixer->addContentBefore($nextStageMemberStartPointer, $content . $newLines);
 
         $file->fixer->endChangeset();
     }
 
-    private function findMemberLineStartPointer(
-        File $file,
-        int $memberStartPointer,
-        int $previousMemberEndPointer
-    ) : int {
-        $types = [T_OPEN_CURLY_BRACKET, T_CLOSE_CURLY_BRACKET, T_SEMICOLON];
+    private function findPreviousMemberEndPointer(File $file, int $memberPointer) : int
+    {
+        $endTypes = [T_OPEN_CURLY_BRACKET, T_CLOSE_CURLY_BRACKET, T_SEMICOLON];
+        $previousMemberEndPointer = TokenHelper::findPrevious($file, $endTypes, $memberPointer - 1);
+        if ($previousMemberEndPointer === null) {
+            throw new RuntimeException('Previous member end pointer not found');
+        }
 
-        $startPointer = DocCommentHelper::findDocCommentOpenToken($file, $memberStartPointer);
+        return $previousMemberEndPointer;
+    }
+
+    private function findStageStartPointer(File $file, int $memberPointer, ?int $previousMemberEndPointer = null) : int
+    {
+        $startPointer = DocCommentHelper::findDocCommentOpenToken($file, $memberPointer - 1);
         if ($startPointer === null) {
+            if ($previousMemberEndPointer === null) {
+                $previousMemberEndPointer = $this->findPreviousMemberEndPointer($file, $memberPointer);
+            }
+
             $startPointer = TokenHelper::findNextEffective($file, $previousMemberEndPointer + 1);
             if ($startPointer === null) {
                 throw new RuntimeException('Start pointer not found');
             }
         }
 
+        $types = [T_OPEN_CURLY_BRACKET, T_CLOSE_CURLY_BRACKET, T_SEMICOLON];
+
         return (int) $file->findFirstOnLine($types, $startPointer, true);
+    }
+
+    private function findStageEndPointer(File $file, int $memberPointer) : int
+    {
+        $tokens = $file->getTokens();
+
+        if ($tokens[$memberPointer]['code'] === T_FUNCTION && ! FunctionHelper::isAbstract($file, $memberPointer)) {
+            $endPointer = $tokens[$memberPointer]['scope_closer'];
+        } else {
+            $endPointer = TokenHelper::findNext($file, T_SEMICOLON, $memberPointer + 1);
+            if ($endPointer === null) {
+                throw new RuntimeException('End pointer not found');
+            }
+        }
+
+        return $endPointer;
     }
 
     private function removeBlankLinesAfterMember(
