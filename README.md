@@ -2,14 +2,16 @@
 
 Custom PHP 7.4 ruleset for [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer).
 
-Ruleset uses sniffs bundled with PHPCS, numerous sniffs from [Slevomat coding-standard](https://github.com/slevomat/coding-standard), and also some of its own custom built sniffs.
 It is designed for PHP 7.4 because of its specific property spacing, which is not plausible without typed properties.
 
 ## Features
 
 - 97% PSR12 compatible
 - Slevomat rules
+    - [Slevomat coding-standard](https://github.com/slevomat/coding-standard)
     - Ruleset includes vast majority of Slevomat sniffs as they're great extension of PSR12 with wider scope and stricter requirements.
+- CDN77 rules
+    - [CDN77 coding-standard](https://github.com/cdn77/coding-standard)
 - Custome rules
     - Package also introduces its own sniffs with more additional checks.
 
