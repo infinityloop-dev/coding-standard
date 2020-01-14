@@ -174,7 +174,7 @@ class ClassStructureSniff implements Sniff
             $fix = $file->addFixableError(
                 sprintf('The placement of %s stage is invalid.', self::STAGE_TOKEN_NAMES[$stage]),
                 $stageFirstMemberPointer,
-                self::CODE_INVALID_STAGE_PLACEMENT
+                self::CODE_INVALID_MEMBER_PLACEMENT
             );
             if (! $fix) {
                 continue;
