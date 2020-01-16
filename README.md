@@ -165,7 +165,7 @@ Excluded sniffs:
     - linesCountBeforeFirstControlStructure: 0
     - linesCountAfterControlStructure: 1
     - linesCountAfterLastControlStructure: 0
-    - tokensToCheck: default
+    - tokensToCheck: [T_SWITCH, T_TRY, T_IF, T_FOR, T_FOREACH, T_WHILE]
 - SlevomatCodingStandard.ControlStructures.JumpStatementsSpacing
     - allowSingleLineYieldStacking: whether or not to allow multiple yield/yield from statements in a row without blank lines.
     - linesCountBeforeControlStructure: 1
