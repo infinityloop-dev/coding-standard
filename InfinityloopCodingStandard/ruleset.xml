@@ -81,9 +81,6 @@
         </properties>
     </rule>
     <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
-     <rule ref="Generic.Arrays.ArrayIndent">
-        <exclude name="Generic.Arrays.ArrayIndent.CloseBraceNotNewLine"/>
-    </rule>
 
     <rule ref="PEAR.Formatting.MultiLineAssignment"/>
     <rule ref="PEAR.WhiteSpace.ObjectOperatorIndent"/>
@@ -302,6 +299,10 @@
             <property name="tokensToCheck" type="array">
                 <element value="T_SWITCH"/>
                 <element value="T_TRY"/>
+                <element value="T_IF"/>
+                <element value="T_FOR"/>
+                <element value="T_FOREACH"/>
+                <element value="T_WHILE"/>
             </property>
             <property name="linesCountBeforeControlStructure" value="1"/>
             <property name="linesCountBeforeFirstControlStructure" value="0"/>
