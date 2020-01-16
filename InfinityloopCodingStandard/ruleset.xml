@@ -27,13 +27,21 @@
         <exclude name="PSR2.Namespaces.UseDeclaration.SpaceAfterLastUse"/>
         <exclude name="PSR2.Namespaces.NamespaceDeclaration.BlankLineAfter"/>
     </rule>
-
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+    <rule ref="Generic.Arrays.ArrayIndent">
+        <!-- conflicts with multi-line arrays -->
+        <exclude name="Generic.Arrays.ArrayIndent.KeyIncorrect"/>
+        <!-- conflicts with multi-line arrays -->
+        <exclude name="Generic.Arrays.ArrayIndent.CloseBraceIncorrect"/>
+    </rule>
+    <rule ref="Generic.Classes.DuplicateClassName"/>
     <rule ref="Generic.CodeAnalysis.EmptyStatement">
         <exclude name="Generic.CodeAnalysis.EmptyStatement.DetectedCatch"/>
     </rule>
     <rule ref="Generic.CodeAnalysis.ForLoopShouldBeWhileLoop"/>
     <rule ref="Generic.CodeAnalysis.UnconditionalIfStatement"/>
     <rule ref="Generic.CodeAnalysis.UnnecessaryFinalModifier"/>
+    <rule ref="Generic.Commenting.Todo"/>
     <rule ref="Generic.ControlStructures.InlineControlStructure"/>
     <rule ref="Generic.Files.ByteOrderMark"/>
     <rule ref="Generic.Files.InlineHTML"/>
@@ -61,8 +69,6 @@
     <rule ref="Generic.PHP.LowerCaseConstant"/>
     <rule ref="Generic.PHP.LowerCaseKeyword"/>
     <rule ref="Generic.PHP.LowerCaseType"/>
-    <rule ref="Generic.Classes.DuplicateClassName"/>
-    <rule ref="Generic.Commenting.Todo"/>
     <rule ref="Generic.Strings.UnnecessaryStringConcat">
         <properties>
             <property name="allowMultiline" value="true"/>
@@ -80,13 +86,10 @@
             <property name="ignoreNewlines" value="true"/>
         </properties>
     </rule>
-    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
-
     <rule ref="PEAR.Formatting.MultiLineAssignment"/>
     <rule ref="PEAR.WhiteSpace.ObjectOperatorIndent"/>
     <rule ref="PEAR.Commenting.InlineComment"/>
     <rule ref="PEAR.Classes.ClassDeclaration"/>
-
     <rule ref="Squiz.PHP.GlobalKeyword"/>
     <rule ref="Squiz.PHP.InnerFunctions"/>
     <rule ref="Squiz.PHP.LowercasePHPFunctions"/>
@@ -148,7 +151,6 @@
         <exclude name="Squiz.Commenting.FunctionComment.ParamCommentFullStop"/>
         <!-- comments don't have to be sentences -->
         <exclude name="Squiz.Commenting.FunctionComment.ParamCommentNotCapital"/>
-        <exclude name="Squiz.Commenting.FunctionComment.ScalarTypeHintMissing"/><!-- works only for code requiring PHP 7 code or better -->
         <!-- we don't want spacing with alignment -->
         <exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamName"/>
         <!-- we don't want spacing with alignment -->
@@ -224,7 +226,6 @@
             <property name="spacingAfterLast" value="0"/>
         </properties>
     </rule>
-
     <rule ref="SlevomatCodingStandard.PHP.ShortList"/>
     <rule ref="SlevomatCodingStandard.PHP.TypeCast"/>
     <rule ref="SlevomatCodingStandard.PHP.OptimizedFunctionsWithoutUnpacking"/>
@@ -468,7 +469,6 @@
             <property name="ignoreUnusedValuesWhenOnlyKeysAreUsedInForeach" value="true"/>
         </properties>
     </rule>
-
     <rule ref="InfinityloopCodingStandard.WhiteSpace.MemberVarSpacing">
         <properties>
             <property name="spacing" value="0"/>
