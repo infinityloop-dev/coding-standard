@@ -50,11 +50,11 @@
             <property name="eolChar" value="\n"/>
         </properties>
     </rule>
-    <rule ref="Generic.Files.LineLength">
+    <rule ref="SlevomatCodingStandard.Files.LineLength">
         <properties>
-            <property name="lineLimit" value="140"/>
-            <property name="absoluteLineLimit" value="140"/>
+            <property name="lineLengthLimit" value="140"/>
             <property name="ignoreComments" value="true"/>
+            <property name="ignoreImports" value="true"/>
         </properties>
     </rule>
     <rule ref="Generic.Formatting.DisallowMultipleStatements"/>
@@ -273,6 +273,40 @@
         <exclude name="SlevomatCodingStandard.Classes.TraitUseSpacing.CountAfterLastUse"/>
     </rule>
     <rule ref="SlevomatCodingStandard.Classes.UselessLateStaticBinding"/>
+    <rule ref="SlevomatCodingStandard.Classes.TraitUseSpacing">
+        <properties>
+            <property name="linesCountBeforeParentCall" value="1"/>
+            <property name="linesCountBeforeFirstControlParentCall" value="0"/>
+            <property name="linesCountAfterParentCall" value="1"/>
+            <property name="linesCountAfterLastParentCall" value="0"/>
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.Classes.ClassStructure">
+        <properties>
+            <property name="groups" type="array">
+                <element value="uses"/>
+                <element value="public constants"/>
+                <element value="protected constants"/>
+                <element value="private constants"/>
+                <element value="public static properties"/>
+                <element value="protected static properties"/>
+                <element value="private static properties"/>
+                <element value="public properties"/>
+                <element value="protected properties"/>
+                <element value="private properties"/>
+                <element value="constructor"/>
+                <element value="static constructors"/>
+                <element value="destructor"/>
+                <element value="public static methods"/>
+                <element value="public methods"/>
+                <element value="protected static methods"/>
+                <element value="protected methods"/>
+                <element value="private static methods"/>
+                <element value="private methods"/>
+                <element value="magic methods"/>
+            </property>
+        </properties>
+    </rule>
     <rule ref="SlevomatCodingStandard.Commenting.EmptyComment"/>
     <rule ref="SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration"/>
     <rule ref="SlevomatCodingStandard.Commenting.UselessInheritDocComment"/>
@@ -352,6 +386,7 @@
             <property name="assumeAllConditionExpressionsAreAlreadyBoolean" value="false"/>
         </properties>
     </rule>
+    <rule ref="SlevomatCodingStandard.ControlStructures.RequireNullCoalesceEqualOperator"/>
     <rule ref="SlevomatCodingStandard.Exceptions.DeadCatch"/>
     <rule ref="SlevomatCodingStandard.Exceptions.ReferenceThrowableOnly"/>
     <rule ref="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses">
@@ -477,6 +512,5 @@
         </properties>
     </rule>
     <rule ref="InfinityloopCodingStandard.Classes.FinalClassVisibility"/>
-    <rule ref="InfinityloopCodingStandard.Classes.ClassStructure"/>
     <rule ref="InfinityloopCodingStandard.Namespaces.UseDoesNotStartWithBackslash"/>
 </ruleset>

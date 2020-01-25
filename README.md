@@ -10,8 +10,6 @@ It is designed for PHP 7.4 because of its specific property spacing, which is no
 - Slevomat rules
     - [Slevomat coding-standard](https://github.com/slevomat/coding-standard)
     - Ruleset includes vast majority of Slevomat sniffs as they're great extension of PSR12 with wider scope and stricter requirements.
-- CDN77 rules
-    - [CDN77 coding-standard](https://github.com/cdn77/coding-standard)
 - Custome rules
     - Package also introduces its own sniffs with more additional checks.
 
@@ -74,8 +72,6 @@ When class is final and doesnt extend any other class, it's safe to change visib
 
 Inverted `SlevomatCodingStandard.Namespaces.UseDoesNotStartWithBackslash` sniff - require imports to start with backslash.
 
-#### InfinityloopCodingStandard.Classes.ClassStructure :wrench:
-
 ### Slevomat sniffs
 
 Detailed list of Slevomat sniffs with configured settings. Some sniffs are not included, either because we dont find them helpful, the are too strict, or collide with their counter-sniff (require/disallow pairs).
@@ -99,12 +95,15 @@ Detailed list of Slevomat sniffs with configured settings. Some sniffs are not i
     - spacesCountAroundEqualsSign: 1
 - SlevomatCodingStandard.Arrays.DisallowImplicitArrayCreation
 - SlevomatCodingStandard.Classes.UselessLateStaticBinding
+- SlevomatCodingStandard.Classes.ClassStructure
+    - groups: [uses, public constants, protected constants, private constants, public static properties, protected static properties, private static properties, public properties, protected properties, private properties, constructor, static constructors, destructor, public static methods, public methods, protected static methods, protected methods, private static methods, private methods, magic methods]
 - SlevomatCodingStandard.ControlStructures.AssignmentInCondition
 - SlevomatCodingStandard.ControlStructures.DisallowContinueWithoutIntegerOperandInSwitch
 - SlevomatCodingStandard.ControlStructures.DisallowEmpty
 - SlevomatCodingStandard.ControlStructures.RequireNullCoalesceOperator
 - SlevomatCodingStandard.ControlStructures.EarlyExit
     - ignoreStandaloneIfInScope: true
+- SlevomatCodingStandard.ControlStructures.RequireNullCoalesceEqualOperator
 - SlevomatCodingStandard.Functions.StaticClosure
 - SlevomatCodingStandard.Operators.DisallowEqualOperators
 - SlevomatCodingStandard.Operators.RequireOnlyStandaloneIncrementAndDecrementOperators
@@ -144,6 +143,7 @@ Excluded sniffs:
 Excluded sniffs:
 
 - SlevomatCodingStandard.PHP.DisallowReference
+- SlevomatCodingStandard.Functions.DisallowEmptyFunction
 
 #### Formatting
 
@@ -240,12 +240,22 @@ Excluded sniffs:
     - assumeAllConditionExpressionsAreAlreadyBoolean: false
 - SlevomatCodingStandard.ControlStructures.UselessTernaryOperator
     - assumeAllConditionExpressionsAreAlreadyBoolean: false
-
+- SlevomatCodingStandard.Files.LineLength
+    - lineLengthLimit: 140
+    - ignoreComments: true
+    - ignoreImports: true
+- SlevomatCodingStandard.Classes.ParentCallSpacing    
+    - linesCountBeforeParentCall: 1
+    - linesCountBeforeFirstControlParentCall: 0
+    - linesCountAfterParentCall: 1
+    - linesCountAfterLastParentCall: 0
+- SlevomatCodingStandard.Arrays.MultiLineArrayEndBracketPlacement
+    
 Excluded sniffs:
 
 - SlevomatCodingStandard.Namespaces.UseDoesNotStartWithBackslash
     - Custom UseDoesStartWithBackslash is used instead.
-- SlevomatCodingStandard.ControlStructures.NewWithoutParentheses
+- SlevomatCodingStandard.ControlStructures.NewWithoutParentheses**
     - NewWithParentheses is used instead.
 - SlevomatCodingStandard.ControlStructures.DisallowShortTernaryOperator
     - RequireShortTernaryOperator is used instead.
@@ -264,3 +274,10 @@ Excluded sniffs:
     - Property doc comments are replaced by typed proeprties.
 - SlevomatCodingStandard.Commenting.DisallowOneLinePropertyDocComment
     - Property doc comments are replaced by typed proeprties.
+- SlevomatCodingStandard.Classes.RequireMultiLineMethodSignature
+- SlevomatCodingStandard.Classes.RequireSingleLineMethodSignature
+- SlevomatCodingStandard.Classes.PropertySpacing
+- SlevomatCodingStandard.Classes.ConstantSpacing
+- SlevomatCodingStandard.Commenting.RequireOneLineDocComment
+- SlevomatCodingStandard.Arrays.SingleLineArrayWhitespace
+- SlevomatCodingStandard.Operators.NegationOperatorSpacing
