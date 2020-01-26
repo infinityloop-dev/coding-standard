@@ -10,7 +10,7 @@ It is designed for PHP 7.4 because of its specific property spacing, which is no
 - Slevomat rules
     - [Slevomat coding-standard](https://github.com/slevomat/coding-standard)
     - Ruleset includes vast majority of Slevomat sniffs as they're great extension of PSR12 with wider scope and stricter requirements.
-- Custome rules
+- Custom rules
     - Package also introduces its own sniffs with more additional checks.
 
 ## Installation
