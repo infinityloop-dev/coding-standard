@@ -303,6 +303,10 @@
                 <element value="protected methods"/>
                 <element value="private static methods"/>
                 <element value="private methods"/>
+                <element value="public abstract methods"/>
+                <element value="protected abstract methods"/>
+                <element value="public static abstract methods"/>
+                <element value="protected static abstract methods"/>
                 <element value="magic methods"/>
             </property>
         </properties>
