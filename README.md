@@ -96,7 +96,7 @@ Detailed list of Slevomat sniffs with configured settings. Some sniffs are not i
 - SlevomatCodingStandard.Arrays.DisallowImplicitArrayCreation
 - SlevomatCodingStandard.Classes.UselessLateStaticBinding
 - SlevomatCodingStandard.Classes.ClassStructure
-    - groups: [uses, public constants, protected constants, private constants, public static properties, protected static properties, private static properties, public properties, protected properties, private properties, constructor, static constructors, destructor, public static methods, public methods, protected static methods, protected methods, private static methods, private methods, magic methods]
+    - groups: [uses, public constants, protected constants, private constants, public static properties, protected static properties, private static properties, public properties, protected properties, private properties, constructor, static constructors, destructor, public static methods, public methods, protected static methods, protected methods, private static methods, private methods, public abstract methods, protected abstract methods, public static abstract methods, protected static abstract methods, magic methods]
 - SlevomatCodingStandard.ControlStructures.AssignmentInCondition
 - SlevomatCodingStandard.ControlStructures.DisallowContinueWithoutIntegerOperandInSwitch
 - SlevomatCodingStandard.ControlStructures.DisallowEmpty
