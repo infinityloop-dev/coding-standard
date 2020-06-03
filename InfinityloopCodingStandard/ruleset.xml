@@ -44,6 +44,7 @@
     <rule ref="Generic.Commenting.Todo"/>
     <rule ref="Generic.ControlStructures.InlineControlStructure"/>
     <rule ref="Generic.Files.ByteOrderMark"/>
+    <rule ref="Generic.Files.EndFileNewline"/>
     <rule ref="Generic.Files.InlineHTML"/>
     <rule ref="Generic.Files.LineEndings">
         <properties>
@@ -517,4 +518,5 @@
     </rule>
     <rule ref="InfinityloopCodingStandard.Classes.FinalClassVisibility"/>
     <rule ref="InfinityloopCodingStandard.Namespaces.UseDoesNotStartWithBackslash"/>
+    <rule ref="InfinityloopCodingStandard.ControlStructures.RequireMultiLineNullCoalesce"/>
 </ruleset>

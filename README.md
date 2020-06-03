@@ -72,6 +72,10 @@ When class is final and doesnt extend any other class, it's safe to change visib
 
 Inverted `SlevomatCodingStandard.Namespaces.UseDoesNotStartWithBackslash` sniff - require imports to start with backslash.
 
+#### InfinityloopCodingStandard.ControlStructures.RequireMultiLineNullCoalesce :wrench:
+
+Enforces null coalesce operator to be reformatted to new line
+
 ### Slevomat sniffs
 
 Detailed list of Slevomat sniffs with configured settings. Some sniffs are not included, either because we dont find them helpful, the are too strict, or collide with their counter-sniff (require/disallow pairs).
