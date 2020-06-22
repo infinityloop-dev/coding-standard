@@ -26,6 +26,8 @@
         <exclude name="PSR2.ControlStructures.ControlStructureSpacing.SpacingAfterOpenBrace"/>
         <exclude name="PSR2.Namespaces.UseDeclaration.SpaceAfterLastUse"/>
         <exclude name="PSR2.Namespaces.NamespaceDeclaration.BlankLineAfter"/>
+        <!-- checked by SlevomatCodingStandard.Files.LineLength -->
+        <exclude name="Generic.Files.LineLength"/>
     </rule>
     <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
     <rule ref="Generic.Arrays.ArrayIndent">
@@ -53,7 +55,7 @@
     </rule>
     <rule ref="SlevomatCodingStandard.Files.LineLength">
         <properties>
-            <property name="lineLengthLimit" value="140"/>
+            <property name="lineLengthLimit" value="150"/>
             <property name="ignoreComments" value="true"/>
             <property name="ignoreImports" value="true"/>
         </properties>
@@ -354,6 +356,7 @@
     <rule ref="SlevomatCodingStandard.ControlStructures.EarlyExit">
         <properties>
             <property name="ignoreStandaloneIfInScope" value="true"/>
+            <property name="ignoreOneLineTrailingIf" value="true"/>
         </properties>
     </rule>
     <rule ref="SlevomatCodingStandard.ControlStructures.JumpStatementsSpacing">
@@ -457,21 +460,6 @@
         </properties>
     </rule>
     <rule ref="SlevomatCodingStandard.TypeHints.UselessConstantTypeHint"/>
-    <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint">
-        <properties>
-            <property name="enableObjectTypeHint" value="true"/>
-        </properties>
-    </rule>
-    <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHint">
-        <properties>
-            <property name="enableNativeTypeHint" value="true"/>
-        </properties>
-    </rule>
-    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint">
-        <properties>
-            <property name="enableObjectTypeHint" value="true"/>
-        </properties>
-    </rule>
     <rule ref="SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint">
         <exclude-pattern>tests/</exclude-pattern>
     </rule>
@@ -491,7 +479,6 @@
     <rule ref="SlevomatCodingStandard.Functions.StaticClosure"/>
     <rule ref="SlevomatCodingStandard.Functions.UselessParameterDefaultValue"/>
     <rule ref="SlevomatCodingStandard.Functions.UnusedInheritedVariablePassedToClosure"/>
-    <rule ref="SlevomatCodingStandard.Functions.UnusedParameter"/>
     <rule ref="SlevomatCodingStandard.Functions.TrailingCommaInCall"/>
     <rule ref="SlevomatCodingStandard.Numbers.DisallowNumericLiteralSeparator"/>
     <rule ref="SlevomatCodingStandard.Operators.DisallowEqualOperators"/>

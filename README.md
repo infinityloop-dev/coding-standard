@@ -82,15 +82,6 @@ Detailed list of Slevomat sniffs with configured settings. Some sniffs are not i
 
 #### Functional
 
-- SlevomatCodingStandard.TypeHints.ParameterTypeHint
-    - enableObjectTypeHint: true
-    - traversableTypeHints: false
-- SlevomatCodingStandard.TypeHints.PropertyTypeHint
-    - enableNativeTypeHint: true
-    - traversableTypeHints: false
-- SlevomatCodingStandard.TypeHints.ReturnTypeHint
-    - enableObjectTypeHint: true
-    - traversableTypeHints: false
 - SlevomatCodingStandard.TypeHints.UselessConstantTypeHint
 - SlevomatCodingStandard.Exceptions.ReferenceThrowableOnly
 - SlevomatCodingStandard.TypeHints.DeclareStrictTypes
@@ -107,6 +98,7 @@ Detailed list of Slevomat sniffs with configured settings. Some sniffs are not i
 - SlevomatCodingStandard.ControlStructures.RequireNullCoalesceOperator
 - SlevomatCodingStandard.ControlStructures.EarlyExit
     - ignoreStandaloneIfInScope: true
+    - ignoreOneLineTrailingIf: true
 - SlevomatCodingStandard.ControlStructures.RequireNullCoalesceEqualOperator
 - SlevomatCodingStandard.Functions.StaticClosure
 - SlevomatCodingStandard.Operators.DisallowEqualOperators
@@ -117,6 +109,9 @@ Excluded sniffs:
 
 - SlevomatCodingStandard.Classes.DisallowLateStaticBindingForConstants
 - SlevomatCodingStandard.Operators.DisallowIncrementAndDecrementOperators
+- SlevomatCodingStandard.TypeHints.ParameterTypeHint
+- SlevomatCodingStandard.TypeHints.PropertyTypeHint
+- SlevomatCodingStandard.TypeHints.ReturnTypeHint
 
 #### Cleaning
 
@@ -124,7 +119,6 @@ Excluded sniffs:
     - alwaysUsedPropertiesAnnotations: false
     - alwaysUsedPropertiesSuffixes: false
 - SlevomatCodingStandard.Functions.UnusedInheritedVariablePassedToClosure
-- SlevomatCodingStandard.Functions.UnusedParameter
 - SlevomatCodingStandard.Functions.UselessParameterDefaultValue
 - SlevomatCodingStandard.Namespaces.UnusedUses
     - searchAnnotations: false
@@ -148,6 +142,7 @@ Excluded sniffs:
 
 - SlevomatCodingStandard.PHP.DisallowReference
 - SlevomatCodingStandard.Functions.DisallowEmptyFunction
+- SlevomatCodingStandard.Functions.UnusedParameter
 
 #### Formatting
 
@@ -245,7 +240,7 @@ Excluded sniffs:
 - SlevomatCodingStandard.ControlStructures.UselessTernaryOperator
     - assumeAllConditionExpressionsAreAlreadyBoolean: false
 - SlevomatCodingStandard.Files.LineLength
-    - lineLengthLimit: 140
+    - lineLengthLimit: 150
     - ignoreComments: true
     - ignoreImports: true
 - SlevomatCodingStandard.Classes.ParentCallSpacing    
