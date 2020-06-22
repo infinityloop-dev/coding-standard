@@ -464,6 +464,7 @@
         <properties>
             <property name="enableObjectTypeHint" value="true"/>
         </properties>
+        <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingTraversableTypeHintSpecification"/>
     </rule>
     <rule ref="SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint">
         <exclude-pattern>tests/</exclude-pattern>

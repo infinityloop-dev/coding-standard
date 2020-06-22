@@ -114,6 +114,7 @@ Excluded sniffs:
 - SlevomatCodingStandard.Operators.DisallowIncrementAndDecrementOperators
 - SlevomatCodingStandard.TypeHints.ParameterTypeHint
 - SlevomatCodingStandard.TypeHints.PropertyTypeHint
+- SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingTraversableTypeHintSpecification
 
 #### Cleaning
 
