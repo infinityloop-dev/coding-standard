@@ -82,6 +82,9 @@ Detailed list of Slevomat sniffs with configured settings. Some sniffs are not i
 
 #### Functional
 
+- SlevomatCodingStandard.TypeHints.ReturnTypeHint
+    - enableObjectTypeHint: true
+    - traversableTypeHints: false
 - SlevomatCodingStandard.TypeHints.UselessConstantTypeHint
 - SlevomatCodingStandard.Exceptions.ReferenceThrowableOnly
 - SlevomatCodingStandard.TypeHints.DeclareStrictTypes
@@ -111,7 +114,6 @@ Excluded sniffs:
 - SlevomatCodingStandard.Operators.DisallowIncrementAndDecrementOperators
 - SlevomatCodingStandard.TypeHints.ParameterTypeHint
 - SlevomatCodingStandard.TypeHints.PropertyTypeHint
-- SlevomatCodingStandard.TypeHints.ReturnTypeHint
 
 #### Cleaning
 
