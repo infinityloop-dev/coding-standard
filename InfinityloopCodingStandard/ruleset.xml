@@ -164,6 +164,7 @@
         <exclude name="Squiz.Commenting.FunctionComment.ThrowsNotCapital"/>
         <!-- doesn't work with self as typehint -->
         <exclude name="Squiz.Commenting.FunctionComment.TypeHintMissing"/>
+        <exclude name="Squiz.Commenting.FunctionComment.MissingParamTag"/>
     </rule>
     <rule ref="Squiz.Commenting.FunctionComment.DuplicateReturn">
         <message>Only 1 @return annotation is allowed in a function comment</message>
@@ -173,9 +174,6 @@
     </rule>
     <rule ref="Squiz.Commenting.FunctionComment.InvalidNoReturn">
         <message>Function has no return statement, but annotation @return is present</message>
-    </rule>
-    <rule ref="Squiz.Commenting.FunctionComment.MissingParamTag">
-        <message>@param annotation for parameter "%s" missing</message>
     </rule>
     <rule ref="Squiz.Functions.FunctionDeclaration"/>
     <rule ref="Squiz.Functions.FunctionDeclarationArgumentSpacing">
