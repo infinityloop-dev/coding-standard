@@ -76,6 +76,10 @@ Inverted `SlevomatCodingStandard.Namespaces.UseDoesNotStartWithBackslash` sniff 
 
 Enforces null coalesce operator to be reformatted to new line
 
+#### InfinityloopCodingStandard.ControlStructures.SwitchCommentSpacing :wrench:
+
+Checks that there is a certain number of blank lines between code and comment
+
 ### Slevomat sniffs
 
 Detailed list of Slevomat sniffs with configured settings. Some sniffs are not included, either because we dont find them helpful, the are too strict, or collide with their counter-sniff (require/disallow pairs).

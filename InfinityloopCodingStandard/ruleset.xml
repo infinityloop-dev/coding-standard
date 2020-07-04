@@ -510,4 +510,5 @@
     <rule ref="InfinityloopCodingStandard.Classes.FinalClassVisibility"/>
     <rule ref="InfinityloopCodingStandard.Namespaces.UseDoesNotStartWithBackslash"/>
     <rule ref="InfinityloopCodingStandard.ControlStructures.RequireMultiLineNullCoalesce"/>
+    <rule ref="InfinityloopCodingStandard.ControlStructures.SwitchCommentSpacing"/>
 </ruleset>
