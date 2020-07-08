@@ -129,7 +129,7 @@ class SwitchCommentSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
 
     /**
      * @param \PHP_CodeSniffer\Files\File $phpcsFile
-     * @param mixed $stackPtr
+     * @param int|bool|null $stackPtr
      * @param int|null $end
      * @return bool|int
      */

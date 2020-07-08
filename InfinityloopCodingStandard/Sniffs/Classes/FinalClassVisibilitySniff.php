@@ -73,7 +73,7 @@ class FinalClassVisibilitySniff implements \PHP_CodeSniffer\Sniffs\Sniff
     }
 
     /**
-     * @return mixed
+     * @return int|bool|null
      */
     private function findVisibilityPointer(\PHP_CodeSniffer\Files\File $phpcsFile, $variablePointer)
     {
