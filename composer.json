@@ -11,7 +11,7 @@
 		"slevomat/coding-standard": "~6.3.8"
 	},
 	"require-dev": {
-		"bamarni/composer-bin-plugin": "^1.2",
+		"bamarni/composer-bin-plugin": "^1.2"
 	},
 	"scripts": {
 		"codestyle": "phpcs --standard=vendor-bin/phpcs/infinityloop-dev/coding-standard/InfinityloopCodingStandard/ruleset.xml --extensions=php InfinityloopCodingStandard"
