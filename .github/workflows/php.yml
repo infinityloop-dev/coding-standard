@@ -26,5 +26,8 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
 
+      - name: Install Coding Standard
+        run: composer bin phpcs require --dev infinityloop-dev/coding-standard:dev-master
+
       - name: Codestyle
         run: composer run-script codestyle
