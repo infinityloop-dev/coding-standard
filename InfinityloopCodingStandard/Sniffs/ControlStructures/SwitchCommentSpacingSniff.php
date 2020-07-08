@@ -151,7 +151,7 @@ class SwitchCommentSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         return $stackPtr;
     }
 
-    private function getEndOfLineBefore(File $phpcsFile, int $pointer) : int
+    private function getEndOfLineBefore(\PHP_CodeSniffer\Files\File $phpcsFile, int $pointer) : int
     {
         $tokens = $phpcsFile->getTokens();
 
