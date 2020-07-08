@@ -1,73 +1,60 @@
-<?php 
+<?php
 
 declare(strict_types = 1);
 
 namespace InfinityloopCodingStandard\Sniffs\Namespaces;
 
-use PHP_CodeSniffer\Files\File;
-use PHP_CodeSniffer\Sniffs\Sniff;
-use SlevomatCodingStandard\Helpers\TokenHelper;
-use SlevomatCodingStandard\Helpers\UseStatementHelper;
-use const T_NS_SEPARATOR;
-use const T_STRING;
-use const T_USE;
+use \SlevomatCodingStandard\Helpers\TokenHelper;
+use \SlevomatCodingStandard\Helpers\UseStatementHelper;
 
-class UseDoesNotStartWithBackslashSniff implements Sniff
+class UseDoesNotStartWithBackslashSniff implements \PHP_CodeSniffer\Sniffs\Sniff
 {
-	public const CODE_DOES_NOT_START_WITH_BACKSLASH = 'UseDoesNotStartWithBackslash';
+    public const CODE_DOES_NOT_START_WITH_BACKSLASH = 'UseDoesNotStartWithBackslash';
 
-	/**
-	 * @return (int|string)[]
-	 */
-	public function register(): array
-	{
-		return [
-			T_USE,
-		];
-	}
+    public function register() : array
+    {
+        return [
+            \T_USE,
+        ];
+    }
 
-	/**
-	 * @phpcsSuppress Slevoma\CodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
-	 * @param \PHP_CodeSniffer\Files\File $phpcsFile
-	 * @param int $usePointer
-	 */
-	public function process(File $phpcsFile, $usePointer): void
-	{
-		if (
-			UseStatementHelper::isAnonymousFunctionUse($phpcsFile, $usePointer)
-			|| UseStatementHelper::isTraitUse($phpcsFile, $usePointer)
-		) {
-			return;
-		}
+    //@phpcs:ignore Squiz.Commenting.FunctionComment.ScalarTypeHintMissing
+    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $usePointer) : void
+    {
+        if (
+            UseStatementHelper::isAnonymousFunctionUse($phpcsFile, $usePointer)
+            || UseStatementHelper::isTraitUse($phpcsFile, $usePointer)
+        ) {
+            return;
+        }
 
-		$tokens = $phpcsFile->getTokens();
+        $tokens = $phpcsFile->getTokens();
+        $nextTokenPointer = TokenHelper::findNextEffective($phpcsFile, $usePointer + 1);
+        \assert(\is_int($nextTokenPointer));
         
-		/** @var int $nextTokenPointer */
-		$nextTokenPointer = TokenHelper::findNextEffective($phpcsFile, $usePointer + 1);
+        if ($tokens[$nextTokenPointer]['code'] === \T_STRING
+            && ($tokens[$nextTokenPointer]['content'] === 'function' || $tokens[$nextTokenPointer]['content'] === 'const')
+        ) {
+            $nextTokenPointer = TokenHelper::findNextEffective($phpcsFile, $nextTokenPointer + 1);
+            \assert(\is_int($nextTokenPointer));
+        }
         
-		if ($tokens[$nextTokenPointer]['code'] === T_STRING
-			&& ($tokens[$nextTokenPointer]['content'] === 'function' || $tokens[$nextTokenPointer]['content'] === 'const')
-		) {
-			/** @var int $nextTokenPointer */
-			$nextTokenPointer = TokenHelper::findNextEffective($phpcsFile, $nextTokenPointer + 1);
-		}
+        if ($tokens[$nextTokenPointer]['code'] === \T_NS_SEPARATOR) {
+            return;
+        }
         
-		if ($tokens[$nextTokenPointer]['code'] === T_NS_SEPARATOR) {
-			return;
-		}
+        $fix = $phpcsFile->addFixableError(
+            'Use statement must start with a backslash.',
+            $nextTokenPointer,
+            self::CODE_DOES_NOT_START_WITH_BACKSLASH,
+        );
         
-		$fix = $phpcsFile->addFixableError(
-			'Use statement must start with a backslash.',
-			$nextTokenPointer,
-			self::CODE_DOES_NOT_START_WITH_BACKSLASH
-		);
+        if (!$fix) {
+            return;
+        }
         
-		if (!$fix) {
-			return;
-		}
-        
-		$phpcsFile->fixer->beginChangeset();
-		$phpcsFile->fixer->addContentBefore($nextTokenPointer, '\\');
-		$phpcsFile->fixer->endChangeset();
-	}
+        $phpcsFile->fixer->beginChangeset();
+        $phpcsFile->fixer->addContentBefore($nextTokenPointer, '\\');
+        $phpcsFile->fixer->endChangeset();
+    }
 }

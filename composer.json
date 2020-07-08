@@ -10,6 +10,12 @@
 		"squizlabs/php_codesniffer": "~3.5.3",
 		"slevomat/coding-standard": "~6.3.8"
 	},
+	"require-dev": {
+		"infinityloop-dev/coding-standard": "dev-master"
+	},
+	"scripts": {
+		"codestyle": "phpcs --standard=vendor/infinityloop-dev/coding-standard/InfinityloopCodingStandard/ruleset.xml --extensions=php InfinityloopCodingStandard"
+	},
 	"autoload": {
 		"psr-4": {
 			"InfinityloopCodingStandard\\": "InfinityloopCodingStandard"
