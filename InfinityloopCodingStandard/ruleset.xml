@@ -120,6 +120,7 @@
         <exclude name="Squiz.Arrays.ArrayDeclaration.NoCommaAfterLast"/>
         <exclude name="Squiz.Arrays.ArrayDeclaration.SingleLineNotAllowed"/>
         <exclude name="Squiz.Arrays.ArrayDeclaration.ValueNotAligned"/>
+        <exclude name="Squiz.Arrays.ArrayDeclaration.ValueNoNewline"/>
     </rule>
     <rule ref="Squiz.Arrays.ArrayBracketSpacing">
         <!-- does not handle nested array access across multiple lines -->
