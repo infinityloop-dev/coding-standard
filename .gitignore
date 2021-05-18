@@ -1,4 +1,2 @@
 .idea/*
 vendor/*
-!vendor/.htaccess
-vendor-bin/*/vendor
