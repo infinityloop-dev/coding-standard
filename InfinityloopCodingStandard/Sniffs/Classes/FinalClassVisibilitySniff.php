@@ -72,10 +72,7 @@ class FinalClassVisibilitySniff implements \PHP_CodeSniffer\Sniffs\Sniff
         $phpcsFile->fixer->endChangeset();
     }
 
-    /**
-     * @return int|bool|null
-     */
-    private function findVisibilityPointer(\PHP_CodeSniffer\Files\File $phpcsFile, $variablePointer)
+    private function findVisibilityPointer(\PHP_CodeSniffer\Files\File $phpcsFile, $variablePointer) : int|bool|null
     {
         $visibilityPointer = $phpcsFile->findPrevious([\T_PUBLIC, \T_PROTECTED, \T_PRIVATE], $variablePointer);
 
