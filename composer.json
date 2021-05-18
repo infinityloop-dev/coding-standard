@@ -14,7 +14,7 @@
 		"bamarni/composer-bin-plugin": "^1.2"
 	},
 	"scripts": {
-		"codestyle": "phpcs --standard=InfinityloopCodingStandard --extensions=php"
+		"codestyle": "phpcs --standard=InfinityloopCodingStandard --extensions=php InfinityloopCodingStandard"
 	},
 	"autoload": {
 		"psr-4": {
