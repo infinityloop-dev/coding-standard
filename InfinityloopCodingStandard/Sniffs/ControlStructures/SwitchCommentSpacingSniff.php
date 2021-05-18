@@ -127,13 +127,7 @@ class SwitchCommentSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         }
     }
 
-    /**
-     * @param \PHP_CodeSniffer\Files\File $phpcsFile
-     * @param int|bool|null $stackPtr
-     * @param int|null $end
-     * @return bool|int
-     */
-    private function findNextCase(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr, ?int $end = null)
+    private function findNextCase(\PHP_CodeSniffer\Files\File $phpcsFile, int|bool|null $stackPtr, ?int $end = null) : bool|int
     {
         $tokens = $phpcsFile->getTokens();
 

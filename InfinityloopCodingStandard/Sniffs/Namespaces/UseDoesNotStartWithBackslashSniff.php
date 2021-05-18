@@ -31,28 +31,28 @@ class UseDoesNotStartWithBackslashSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         $tokens = $phpcsFile->getTokens();
         $nextTokenPointer = TokenHelper::findNextEffective($phpcsFile, $usePointer + 1);
         \assert(\is_int($nextTokenPointer));
-        
+
         if ($tokens[$nextTokenPointer]['code'] === \T_STRING
             && ($tokens[$nextTokenPointer]['content'] === 'function' || $tokens[$nextTokenPointer]['content'] === 'const')
         ) {
             $nextTokenPointer = TokenHelper::findNextEffective($phpcsFile, $nextTokenPointer + 1);
             \assert(\is_int($nextTokenPointer));
         }
-        
+
         if ($tokens[$nextTokenPointer]['code'] === \T_NS_SEPARATOR) {
             return;
         }
-        
+
         $fix = $phpcsFile->addFixableError(
             'Use statement must start with a backslash.',
             $nextTokenPointer,
             self::CODE_DOES_NOT_START_WITH_BACKSLASH,
         );
-        
+
         if (!$fix) {
             return;
         }
-        
+
         $phpcsFile->fixer->beginChangeset();
         $phpcsFile->fixer->addContentBefore($nextTokenPointer, '\\');
         $phpcsFile->fixer->endChangeset();
