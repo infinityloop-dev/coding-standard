@@ -10,12 +10,8 @@ class MemberVarSpacingSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSnif
     public int $spacingBeforeFirst = 1;
     public bool $ignoreFirstMemberVar = false;
 
-    /**
-     * @return int|void
-     */
     //@phpcs:ignore Squiz.Commenting.FunctionComment.ScalarTypeHintMissing
-    //@phpcs:ignore SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
-    protected function processMemberVar(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr)
+    protected function processMemberVar(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr) : ?int
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -25,7 +21,7 @@ class MemberVarSpacingSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSnif
         $startOfStatement = $phpcsFile->findPrevious($validPrefixes, $stackPtr - 1, null, false, null, true);
 
         if ($startOfStatement === false) {
-            return;
+            return null;
         }
 
         $endOfStatement = $phpcsFile->findNext(\T_SEMICOLON, $stackPtr + 1, null, false, null, true);
@@ -97,13 +93,13 @@ class MemberVarSpacingSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSnif
             && isset($tokens[$prev]['scope_condition']) === true
             && $tokens[$tokens[$prev]['scope_condition']]['code'] === \T_FUNCTION
         ) {
-            return;
+            return null;
         }
 
         $prevVar = $phpcsFile->findPrevious(\T_VARIABLE, $first - 1);
 
         if ($this->ignoreFirstMemberVar && $tokens[$prevVar]['code'] !== \T_VARIABLE) {
-            return;
+            return null;
         }
 
         if ($tokens[$prev]['code'] === \T_OPEN_CURLY_BRACKET
@@ -131,7 +127,7 @@ class MemberVarSpacingSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSnif
                 return $endOfStatement;
             }
 
-            return;
+            return null;
         }
 
         $data = [
