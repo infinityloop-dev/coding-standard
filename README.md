@@ -1,8 +1,6 @@
 # Infinityloop Coding-Standard
 
-Custom PHP 7.4 ruleset for [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer).
-
-It is designed for PHP 7.4 because of its specific property spacing, which is not plausible without typed properties.
+Custom PHP 8.0 ruleset for [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer).
 
 ## Features
 
@@ -107,6 +105,7 @@ Detailed list of Slevomat sniffs with configured settings. Some sniffs are not i
     - ignoreStandaloneIfInScope: true
     - ignoreOneLineTrailingIf: true
 - SlevomatCodingStandard.ControlStructures.RequireNullCoalesceEqualOperator
+- SlevomatCodingStandard.ControlStructures.RequireNullSafeObjectOperator
 - SlevomatCodingStandard.Functions.StaticClosure
 - SlevomatCodingStandard.Operators.DisallowEqualOperators
 - SlevomatCodingStandard.Operators.RequireOnlyStandaloneIncrementAndDecrementOperators
@@ -122,9 +121,6 @@ Excluded sniffs:
 
 #### Cleaning
 
-- SlevomatCodingStandard.Classes.UnusedPrivateElements
-    - alwaysUsedPropertiesAnnotations: false
-    - alwaysUsedPropertiesSuffixes: false
 - SlevomatCodingStandard.Functions.UnusedInheritedVariablePassedToClosure
 - SlevomatCodingStandard.Functions.UselessParameterDefaultValue
 - SlevomatCodingStandard.Namespaces.UnusedUses
@@ -144,6 +140,7 @@ Excluded sniffs:
     - ignoreUnusedValuesWhenOnlyKeysAreUsedInForeach: true
 - SlevomatCodingStandard.Variables.UselessVariable
 - SlevomatCodingStandard.Exceptions.DeadCatch
+- SlevomatCodingStandard.Exceptions.RequireNonCapturingCatch
 
 Excluded sniffs:
 
@@ -171,14 +168,16 @@ Excluded sniffs:
     - linesCountBeforeFirstControlStructure: 0
     - linesCountAfterControlStructure: 1
     - linesCountAfterLastControlStructure: 0
-    - tokensToCheck: [T_SWITCH, T_TRY, T_IF, T_FOR, T_FOREACH, T_WHILE]
+    - controlStructures: [switch, try, if, for, foreach, while]
 - SlevomatCodingStandard.ControlStructures.JumpStatementsSpacing
     - allowSingleLineYieldStacking: whether or not to allow multiple yield/yield from statements in a row without blank lines.
-    - linesCountBeforeControlStructure: 1
-    - linesCountBeforeFirstControlStructure: 0
-    - linesCountAfterControlStructure: 0
-    - linesCountAfterLastControlStructure: 0
-    - tokensToCheck: default
+    - linesCountBefore: 1
+    - linesCountBeforeFirst: 0
+    - linesCountAfter: 0
+    - linesCountAfterLast: 0
+    - linesCountAfterWhenLastInCaseOrDefault: 0
+    - linesCountAfterWhenLastInLastCaseOrDefault: 0
+    - jumpStatements: [goto, throw, yield, continue, break, return]
 - SlevomatCodingStandard.ControlStructures.LanguageConstructWithParentheses
 - SlevomatCodingStandard.ControlStructures.NewWithParentheses
 - SlevomatCodingStandard.ControlStructures.RequireMultiLineTernaryOperator
@@ -188,7 +187,8 @@ Excluded sniffs:
     - ignoreMultiLine: false
 - SlevomatCodingStandard.ControlStructures.DisallowYodaComparison
 - SlevomatCodingStandard.Functions.DisallowArrowFunction
-- SlevomatCodingStandard.Functions.TrailingCommaInCall
+- SlevomatCodingStandard.Functions.RequireTrailingCommaInCall
+- SlevomatCodingStandard.Functions.RequireTrailingCommaInDeclaration
 - SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses
     - psr12Compatible: true
     - caseSensitive: true
@@ -220,9 +220,11 @@ Excluded sniffs:
 - SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue
 - SlevomatCodingStandard.TypeHints.ParameterTypeHintSpacing
 - SlevomatCodingStandard.TypeHints.PropertyTypeHintSpacing
+- SlevomatCodingStandard.TypeHints.UnionTypeHintFormat
+    - withSpaces: no
+    - shortNullable: yes
+    - nullPosition: last
 - SlevomatCodingStandard.Namespaces.DisallowGroupUse
-- SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameAfterKeyword
-    - keywordsToCheck: T_EXTENDS, T_IMPLEMENETS, T_USE, T_NEW, T_THROW
 - SlevomatCodingStandard.Namespaces.FullyQualifiedExceptions
     - specialExceptionNames: false
     - ignoredNames: default
@@ -237,6 +239,7 @@ Excluded sniffs:
 - SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation
 - SlevomatCodingStandard.Commenting.ForbiddenAnnotations
     - forbiddenAnnotations: @author, @created, @version, @package, @copyright, @license, @throws
+- SlevomatCodingStandard.Classes.RequireConstructorPropertyPromotion
 - SlevomatCodingStandard.Commenting.EmptyComment
 - SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration
 - SlevomatCodingStandard.Commenting.UselessFunctionDocComment
