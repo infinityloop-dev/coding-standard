@@ -333,18 +333,18 @@
     <rule ref="SlevomatCodingStandard.ControlStructures.AssignmentInCondition"/>
     <rule ref="SlevomatCodingStandard.ControlStructures.BlockControlStructureSpacing">
         <properties>
-            <property name="tokensToCheck" type="array">
-                <element value="T_SWITCH"/>
-                <element value="T_TRY"/>
-                <element value="T_IF"/>
-                <element value="T_FOR"/>
-                <element value="T_FOREACH"/>
-                <element value="T_WHILE"/>
+            <property name="linesCountBefore" value="1"/>
+            <property name="linesCountBeforeFirst" value="0"/>
+            <property name="linesCountAfter" value="1"/>
+            <property name="linesCountAfterLast" value="0"/>
+            <property name="controlStructures" type="array">
+                <element value="switch"/>
+                <element value="try"/>
+                <element value="if"/>
+                <element value="for"/>
+                <element value="foreach"/>
+                <element value="while"/>
             </property>
-            <property name="linesCountBeforeControlStructure" value="1"/>
-            <property name="linesCountBeforeFirstControlStructure" value="0"/>
-            <property name="linesCountAfterControlStructure" value="1"/>
-            <property name="linesCountAfterLastControlStructure" value="0"/>
         </properties>
     </rule>
     <rule ref="SlevomatCodingStandard.ControlStructures.DisallowContinueWithoutIntegerOperandInSwitch"/>
@@ -356,20 +356,21 @@
     </rule>
     <rule ref="SlevomatCodingStandard.ControlStructures.JumpStatementsSpacing">
         <properties>
-            <property name="tokensToCheck" type="array">
-                <element value="T_GOTO"/>
-                <element value="T_THROW"/>
-                <element value="T_YIELD"/>
-                <element value="T_YIELD_FROM"/>
-                <element value="T_CONTINUE"/>
-                <element value="T_BREAK"/>
-                <element value="T_RETURN"/>
+            <property name="linesCountBefore" value="1"/>
+            <property name="linesCountBeforeFirst" value="0"/>
+            <property name="linesCountAfter" value="1"/>
+            <property name="linesCountAfterLast" value="0"/>
+            <property name="linesCountAfterWhenLastInCaseOrDefault" value="0"/>
+            <property name="linesCountAfterWhenLastInLastCaseOrDefault" value="0"/>
+            <property name="jumpStatements" type="array">
+                <element value="goto"/>
+                <element value="throw"/>
+                <element value="yield"/>
+                <element value="continue"/>
+                <element value="break"/>
+                <element value="return"/>
             </property>
         </properties>
-        <property name="linesCountBeforeControlStructure" value="1"/>
-        <property name="linesCountBeforeFirstControlStructure" value="0"/>
-        <property name="linesCountAfterControlStructure" value="0"/>
-        <property name="linesCountAfterLastControlStructure" value="0"/>
     </rule>
     <rule ref="SlevomatCodingStandard.ControlStructures.RequireMultiLineTernaryOperator">
         <properties>
