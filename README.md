@@ -1,8 +1,6 @@
 # Infinityloop Coding-Standard
 
-Custom PHP 7.4 ruleset for [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer).
-
-It is designed for PHP 7.4 because of its specific property spacing, which is not plausible without typed properties.
+Custom PHP 8.0 ruleset for [PHP_CodeSniffer](https://github.com/squizlabs/PHP_CodeSniffer).
 
 ## Features
 
