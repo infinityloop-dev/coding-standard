@@ -459,13 +459,6 @@
     <rule ref="SlevomatCodingStandard.TypeHints.NullTypeHintOnLastPosition"/>
     <rule ref="SlevomatCodingStandard.TypeHints.DisallowArrayTypeHintSyntax"/>
     <rule ref="SlevomatCodingStandard.TypeHints.PropertyTypeHintSpacing"/>
-    <rule ref="SlevomatCodingStandard.TypeHints.UnionTypeHintFormat">
-        <properties>
-            <property name="withSpaces" value="no"/>
-            <property name="shortNullable" value="yes"/>
-            <property name="nullPosition" value="last"/>
-        </properties>
-    </rule>
     <rule ref="SlevomatCodingStandard.Arrays.DisallowImplicitArrayCreation"/>
     <rule ref="SlevomatCodingStandard.Arrays.TrailingArrayComma">
         <properties>
@@ -508,4 +501,5 @@
     <rule ref="InfinityloopCodingStandard.Namespaces.UseDoesNotStartWithBackslash"/>
     <rule ref="InfinityloopCodingStandard.ControlStructures.RequireMultiLineNullCoalesce"/>
     <rule ref="InfinityloopCodingStandard.ControlStructures.SwitchCommentSpacing"/>
+    <rule ref="InfinityloopCodingStandard.TypeHints.UnionTypeHintFormat"/>
 </ruleset>
