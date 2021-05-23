@@ -78,6 +78,10 @@ Enforces null coalesce operator to be reformatted to new line
 
 Checks that there is a certain number of blank lines between code and comment
 
+#### InfinityloopCodingStandard.TypeHints.UnionTypeHintFormat :wrench:
+
+Improved version of Slevomat UnionTypeHintFormat with added formatting of multiline unions
+
 ### Slevomat sniffs
 
 Detailed list of Slevomat sniffs with configured settings. Some sniffs are not included, either because we dont find them helpful, the are too strict, or collide with their counter-sniff (require/disallow pairs).
@@ -220,10 +224,6 @@ Excluded sniffs:
 - SlevomatCodingStandard.TypeHints.NullableTypeForNullDefaultValue
 - SlevomatCodingStandard.TypeHints.ParameterTypeHintSpacing
 - SlevomatCodingStandard.TypeHints.PropertyTypeHintSpacing
-- SlevomatCodingStandard.TypeHints.UnionTypeHintFormat
-    - withSpaces: no
-    - shortNullable: yes
-    - nullPosition: last
 - SlevomatCodingStandard.Namespaces.DisallowGroupUse
 - SlevomatCodingStandard.Namespaces.FullyQualifiedExceptions
     - specialExceptionNames: false
