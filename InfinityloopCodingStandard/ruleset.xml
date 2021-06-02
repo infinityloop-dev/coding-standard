@@ -502,4 +502,5 @@
     <rule ref="InfinityloopCodingStandard.ControlStructures.RequireMultiLineNullCoalesce"/>
     <rule ref="InfinityloopCodingStandard.ControlStructures.SwitchCommentSpacing"/>
     <rule ref="InfinityloopCodingStandard.TypeHints.UnionTypeHintFormat"/>
+    <rule ref="InfinityloopCodingStandard.Classes.ConstructorPropertyPromotionSpacing"/>
 </ruleset>
