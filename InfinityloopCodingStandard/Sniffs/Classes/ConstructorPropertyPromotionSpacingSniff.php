@@ -57,6 +57,34 @@ class ConstructorPropertyPromotionSpacingSniff implements \PHP_CodeSniffer\Sniff
             return;
         }
 
+        if (\count($parameterPointers) === 1) {
+            $pointerBefore = \SlevomatCodingStandard\Helpers\TokenHelper::findPrevious(
+                $phpcsFile,
+                [\T_COMMA, \T_OPEN_PARENTHESIS],
+                $parameterPointers[0],
+            );
+
+            if ($tokens[$parameterPointers[0]]['line'] !== $tokens[$pointerBefore]['line']) {
+                return;
+            }
+
+            $fix = $phpcsFile->addFixableError(
+                'Constructor parameter should be reformatted to next line.',
+                $parameterPointers[0],
+                self::CONSTRUCTOR_PARAMETER_SAME_LINE,
+            );
+
+            if (!$fix) {
+                return;
+            }
+
+            $phpcsFile->fixer->beginChangeset();
+
+            $phpcsFile->fixer->addContent($pointerBefore, $phpcsFile->eolChar);
+
+            $phpcsFile->fixer->endChangeset();
+        }
+
         $previousPointer = null;
 
         foreach ($parameterPointers as $parameterPointer) {
