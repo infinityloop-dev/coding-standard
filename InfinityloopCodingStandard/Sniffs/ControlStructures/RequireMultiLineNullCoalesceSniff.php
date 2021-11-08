@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace InfinityloopCodingStandard\Sniffs\ControlStructures;
 
+use \PHP_CodeSniffer\Files\File;
 use \SlevomatCodingStandard\Helpers\TokenHelper;
 
 class RequireMultiLineNullCoalesceSniff implements \PHP_CodeSniffer\Sniffs\Sniff
@@ -24,7 +25,7 @@ class RequireMultiLineNullCoalesceSniff implements \PHP_CodeSniffer\Sniffs\Sniff
     }
 
     //@phpcs:ignore Squiz.Commenting.FunctionComment.ScalarTypeHintMissing
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $coalescePointer) : void
+    public function process(File $phpcsFile, $coalescePointer) : void
     {
         $tokens = $phpcsFile->getTokens();
 
