@@ -130,13 +130,15 @@ class ReferenceUsedNamesAfterUsageSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 }
             }
 
-            //Skip functions and constants
-            if ($reference->isFunction || $reference->isConstant) {
+            if ($reference->isClass === true && !NamespaceHelper::hasNamespace($name) && $isFullyQualified) {
                 continue;
             }
 
-            //Ignore stdClass
-            if ($reference->isClass === true && $canonicalName === 'stdClass') {
+            if ($reference->isFunction === true && !NamespaceHelper::hasNamespace($name) && $isFullyQualified) {
+                continue;
+            }
+
+            if ($reference->isConstant === true && !NamespaceHelper::hasNamespace($name) && $isFullyQualified) {
                 continue;
             }
 
