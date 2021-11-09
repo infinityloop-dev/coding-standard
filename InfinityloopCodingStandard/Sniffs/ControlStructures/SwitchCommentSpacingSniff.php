@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace InfinityloopCodingStandard\Sniffs\ControlStructures;
 
+use \PHP_CodeSniffer\Files\File;
 use \SlevomatCodingStandard\Helpers\TokenHelper;
 
 class SwitchCommentSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
@@ -21,7 +22,7 @@ class SwitchCommentSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
     }
 
     //@phpcs:ignore Squiz.Commenting.FunctionComment.ScalarTypeHintMissing
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr) : void
+    public function process(File $phpcsFile, $stackPtr) : void
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -127,7 +128,7 @@ class SwitchCommentSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         }
     }
 
-    private function findNextCase(\PHP_CodeSniffer\Files\File $phpcsFile, int|bool|null $stackPtr, ?int $end = null) : bool|int
+    private function findNextCase(File $phpcsFile, int|bool|null $stackPtr, ?int $end = null) : bool|int
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -145,7 +146,7 @@ class SwitchCommentSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         return $stackPtr;
     }
 
-    private function getEndOfLineBefore(\PHP_CodeSniffer\Files\File $phpcsFile, int $pointer) : int
+    private function getEndOfLineBefore(File $phpcsFile, int $pointer) : int
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -193,7 +194,7 @@ class SwitchCommentSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         return $endOfLineBefore;
     }
 
-    private function getIndentation(\PHP_CodeSniffer\Files\File $phpcsFile, int $endOfLinePointer) : string
+    private function getIndentation(File $phpcsFile, int $endOfLinePointer) : string
     {
         $pointerAfterWhitespace = TokenHelper::findNextExcluding($phpcsFile, \T_WHITESPACE, $endOfLinePointer + 1);
         $actualIndentation = TokenHelper::getContent($phpcsFile, $endOfLinePointer + 1, $pointerAfterWhitespace - 1);

@@ -4,6 +4,13 @@ declare(strict_types = 1);
 
 namespace InfinityloopCodingStandard\Sniffs\TypeHints;
 
+use \PHP_CodeSniffer\Files\File;
+use \SlevomatCodingStandard\Helpers\FunctionHelper;
+use \SlevomatCodingStandard\Helpers\PropertyHelper;
+use \SlevomatCodingStandard\Helpers\SniffSettingsHelper;
+use \SlevomatCodingStandard\Helpers\TokenHelper;
+use \SlevomatCodingStandard\Helpers\TypeHint;
+
 /**
  * https://github.com/slevomat/coding-standard/blob/master/SlevomatCodingStandard/Sniffs/TypeHints/UnionTypeHintFormatSniff.php
  */
@@ -22,7 +29,7 @@ class UnionTypeHintFormatSniff implements \PHP_CodeSniffer\Sniffs\Sniff
     {
         return \array_merge(
             [\T_VARIABLE],
-            \SlevomatCodingStandard\Helpers\TokenHelper::$functionTokenCodes,
+            TokenHelper::$functionTokenCodes,
         );
     }
 
@@ -32,20 +39,20 @@ class UnionTypeHintFormatSniff implements \PHP_CodeSniffer\Sniffs\Sniff
      * @param int $pointer
      */
     //@phpcs:ignore Squiz.Commenting.FunctionComment.ScalarTypeHintMissing
-    public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $pointer) : void
+    public function process(File $phpcsFile, $pointer) : void
     {
-        if (!\SlevomatCodingStandard\Helpers\SniffSettingsHelper::isEnabledByPhpVersion(null, 80000)) {
+        if (!SniffSettingsHelper::isEnabledByPhpVersion(null, 80000)) {
             return;
         }
 
         $tokens = $phpcsFile->getTokens();
 
         if ($tokens[$pointer]['code'] === \T_VARIABLE) {
-            if (!\SlevomatCodingStandard\Helpers\PropertyHelper::isProperty($phpcsFile, $pointer)) {
+            if (!PropertyHelper::isProperty($phpcsFile, $pointer)) {
                 return;
             }
 
-            $propertyTypeHint = \SlevomatCodingStandard\Helpers\PropertyHelper::findTypeHint($phpcsFile, $pointer);
+            $propertyTypeHint = PropertyHelper::findTypeHint($phpcsFile, $pointer);
 
             if ($propertyTypeHint !== null) {
                 $this->checkTypeHint($phpcsFile, $propertyTypeHint);
@@ -54,20 +61,20 @@ class UnionTypeHintFormatSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             return;
         }
 
-        $returnTypeHint = \SlevomatCodingStandard\Helpers\FunctionHelper::findReturnTypeHint($phpcsFile, $pointer);
+        $returnTypeHint = FunctionHelper::findReturnTypeHint($phpcsFile, $pointer);
 
         if ($returnTypeHint !== null) {
             $this->checkTypeHint($phpcsFile, $returnTypeHint);
         }
 
-        foreach (\SlevomatCodingStandard\Helpers\FunctionHelper::getParametersTypeHints($phpcsFile, $pointer) as $parameterTypeHint) {
+        foreach (FunctionHelper::getParametersTypeHints($phpcsFile, $pointer) as $parameterTypeHint) {
             if ($parameterTypeHint !== null) {
                 $this->checkTypeHint($phpcsFile, $parameterTypeHint);
             }
         }
     }
 
-    private function checkTypeHint(\PHP_CodeSniffer\Files\File $phpcsFile, \SlevomatCodingStandard\Helpers\TypeHint $typeHint) : void
+    private function checkTypeHint(File $phpcsFile, TypeHint $typeHint) : void
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -78,7 +85,7 @@ class UnionTypeHintFormatSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             $isOneline = true;
 
             foreach (
-                \SlevomatCodingStandard\Helpers\TokenHelper::findNextAll(
+                TokenHelper::findNextAll(
                     $phpcsFile,
                     [\T_TYPE_UNION],
                     $typeHint->getStartPointer(),
@@ -93,7 +100,7 @@ class UnionTypeHintFormatSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                     );
                 }
 
-                $nextUnionType = \SlevomatCodingStandard\Helpers\TokenHelper::findNextEffective($phpcsFile, $unionSeparator + 1);
+                $nextUnionType = TokenHelper::findNextEffective($phpcsFile, $unionSeparator + 1);
 
                 if ($tokens[$nextUnionType]['line'] === $firstUnionType['line']) {
                     continue;
@@ -132,7 +139,7 @@ class UnionTypeHintFormatSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 }
 
                 for ($i = 0; $i < \abs($difference); $i++) {
-                    $token = \SlevomatCodingStandard\Helpers\TokenHelper::findPrevious(
+                    $token = TokenHelper::findPrevious(
                         $phpcsFile,
                         [\T_WHITESPACE],
                         $nextUnionType - $i,
@@ -154,7 +161,7 @@ class UnionTypeHintFormatSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             }
 
             if ($isOneline) {
-                $whitespacePointer = \SlevomatCodingStandard\Helpers\TokenHelper::findNext(
+                $whitespacePointer = TokenHelper::findNext(
                     $phpcsFile,
                     \T_WHITESPACE,
                     $typeHint->getStartPointer() + 1,
@@ -162,7 +169,7 @@ class UnionTypeHintFormatSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 );
 
                 if ($whitespacePointer !== null) {
-                    $originalTypeHint = \SlevomatCodingStandard\Helpers\TokenHelper::getContent(
+                    $originalTypeHint = TokenHelper::getContent(
                         $phpcsFile,
                         $typeHint->getStartPointer(),
                         $typeHint->getEndPointer(),
@@ -216,29 +223,29 @@ class UnionTypeHintFormatSniff implements \PHP_CodeSniffer\Sniffs\Sniff
     }
 
     private function getTypeHintContentWithoutNull(
-        \PHP_CodeSniffer\Files\File $phpcsFile,
+        File $phpcsFile,
         \SlevomatCodingStandard\Helpers\TypeHint $typeHint,
     ) : string
     {
         $tokens = $phpcsFile->getTokens();
 
         if (\strtolower($tokens[$typeHint->getEndPointer()]['content']) === 'null') {
-            $previousTypeHintPointer = \SlevomatCodingStandard\Helpers\TokenHelper::findPrevious(
+            $previousTypeHintPointer = TokenHelper::findPrevious(
                 $phpcsFile,
-                \SlevomatCodingStandard\Helpers\TokenHelper::getOnlyTypeHintTokenCodes(),
+                TokenHelper::getOnlyTypeHintTokenCodes(),
                 $typeHint->getEndPointer() - 1,
             );
 
-            return \SlevomatCodingStandard\Helpers\TokenHelper::getContent($phpcsFile, $typeHint->getStartPointer(), $previousTypeHintPointer);
+            return TokenHelper::getContent($phpcsFile, $typeHint->getStartPointer(), $previousTypeHintPointer);
         }
 
         $content = '';
 
         for ($i = $typeHint->getStartPointer(); $i <= $typeHint->getEndPointer(); $i++) {
             if (\strtolower($tokens[$i]['content']) === 'null') {
-                $i = \SlevomatCodingStandard\Helpers\TokenHelper::findNext(
+                $i = TokenHelper::findNext(
                     $phpcsFile,
-                    \SlevomatCodingStandard\Helpers\TokenHelper::getOnlyTypeHintTokenCodes(),
+                    TokenHelper::getOnlyTypeHintTokenCodes(),
                     $i + 1,
                 );
             }
@@ -250,7 +257,7 @@ class UnionTypeHintFormatSniff implements \PHP_CodeSniffer\Sniffs\Sniff
     }
 
     private function fixTypeHint(
-        \PHP_CodeSniffer\Files\File $phpcsFile,
+        File $phpcsFile,
         \SlevomatCodingStandard\Helpers\TypeHint $typeHint,
         string $fixedTypeHint,
     ) : void

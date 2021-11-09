@@ -4,6 +4,10 @@ declare(strict_types = 1);
 
 namespace InfinityloopCodingStandard\Sniffs\Classes;
 
+use \SlevomatCodingStandard\Helpers\FunctionHelper;
+use \SlevomatCodingStandard\Helpers\SniffSettingsHelper;
+use \SlevomatCodingStandard\Helpers\TokenHelper;
+
 class ConstructorPropertyPromotionSpacingSniff implements \PHP_CodeSniffer\Sniffs\Sniff
 {
     public const CONSTRUCTOR_PARAMETER_SAME_LINE = 'ConstructorParametersOnSameLine';
@@ -15,19 +19,19 @@ class ConstructorPropertyPromotionSpacingSniff implements \PHP_CodeSniffer\Sniff
 
     public function process(\PHP_CodeSniffer\Files\File $phpcsFile, $functionPointer) : void
     {
-        if (!\SlevomatCodingStandard\Helpers\SniffSettingsHelper::isEnabledByPhpVersion(null, 80000)) {
+        if (!SniffSettingsHelper::isEnabledByPhpVersion(null, 80000)) {
             return;
         }
 
         $tokens = $phpcsFile->getTokens();
 
-        $namePointer = \SlevomatCodingStandard\Helpers\TokenHelper::findNextEffective($phpcsFile, $functionPointer + 1);
+        $namePointer = TokenHelper::findNextEffective($phpcsFile, $functionPointer + 1);
 
         if (\strtolower($tokens[$namePointer]['content']) !== '__construct') {
             return;
         }
 
-        if (\SlevomatCodingStandard\Helpers\FunctionHelper::isAbstract($phpcsFile, $functionPointer)) {
+        if (FunctionHelper::isAbstract($phpcsFile, $functionPointer)) {
             return;
         }
 
@@ -40,13 +44,13 @@ class ConstructorPropertyPromotionSpacingSniff implements \PHP_CodeSniffer\Sniff
         $containsPropertyPromotion = false;
 
         foreach ($parameterPointers as $parameterPointer) {
-            $pointerBefore = \SlevomatCodingStandard\Helpers\TokenHelper::findPrevious(
+            $pointerBefore = TokenHelper::findPrevious(
                 $phpcsFile,
                 [\T_COMMA, \T_OPEN_PARENTHESIS],
                 $parameterPointer - 1,
             );
 
-            $visibilityPointer = \SlevomatCodingStandard\Helpers\TokenHelper::findNextEffective($phpcsFile, $pointerBefore + 1);
+            $visibilityPointer = TokenHelper::findNextEffective($phpcsFile, $pointerBefore + 1);
 
             if (\in_array($tokens[$visibilityPointer]['code'], \PHP_CodeSniffer\Util\Tokens::$scopeModifiers, true)) {
                 $containsPropertyPromotion = true;
@@ -58,7 +62,7 @@ class ConstructorPropertyPromotionSpacingSniff implements \PHP_CodeSniffer\Sniff
         }
 
         if (\count($parameterPointers) === 1) {
-            $pointerBefore = \SlevomatCodingStandard\Helpers\TokenHelper::findPrevious(
+            $pointerBefore = TokenHelper::findPrevious(
                 $phpcsFile,
                 [\T_COMMA, \T_OPEN_PARENTHESIS],
                 $parameterPointers[0],
@@ -110,7 +114,7 @@ class ConstructorPropertyPromotionSpacingSniff implements \PHP_CodeSniffer\Sniff
 
             $phpcsFile->fixer->beginChangeset();
 
-            $pointerBefore = \SlevomatCodingStandard\Helpers\TokenHelper::findPrevious(
+            $pointerBefore = TokenHelper::findPrevious(
                 $phpcsFile,
                 [\T_COMMA, \T_OPEN_PARENTHESIS],
                 $parameterPointer - 1,
@@ -126,7 +130,7 @@ class ConstructorPropertyPromotionSpacingSniff implements \PHP_CodeSniffer\Sniff
     {
         $tokens = $phpcsFile->getTokens();
 
-        return \SlevomatCodingStandard\Helpers\TokenHelper::findNextAll(
+        return TokenHelper::findNextAll(
             $phpcsFile,
             \T_VARIABLE,
             $tokens[$functionPointer]['parenthesis_opener'] + 1,

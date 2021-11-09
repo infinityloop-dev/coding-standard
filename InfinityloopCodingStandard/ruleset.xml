@@ -503,4 +503,10 @@
     <rule ref="InfinityloopCodingStandard.ControlStructures.SwitchCommentSpacing"/>
     <rule ref="InfinityloopCodingStandard.TypeHints.UnionTypeHintFormat"/>
     <rule ref="InfinityloopCodingStandard.Classes.ConstructorPropertyPromotionSpacing"/>
+    <rule ref="InfinityloopCodingStandard.Namespaces.ReferenceUsedNamesAfterUsage">
+        <properties>
+            <property name="count" value="3"/>
+            <property name="length" value="45"/>
+        </properties>
+    </rule>
 </ruleset>

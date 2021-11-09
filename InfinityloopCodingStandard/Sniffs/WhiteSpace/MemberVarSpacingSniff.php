@@ -4,6 +4,9 @@ declare(strict_types = 1);
 
 namespace InfinityloopCodingStandard\Sniffs\WhiteSpace;
 
+use \PHP_CodeSniffer\Files\File;
+use \PHP_CodeSniffer\Util\Tokens;
+
 class MemberVarSpacingSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSniff
 {
     public int $spacing = 1;
@@ -11,11 +14,11 @@ class MemberVarSpacingSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSnif
     public bool $ignoreFirstMemberVar = false;
 
     //@phpcs:ignore Squiz.Commenting.FunctionComment.ScalarTypeHintMissing
-    protected function processMemberVar(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr) : ?int
+    protected function processMemberVar(File $phpcsFile, $stackPtr) : ?int
     {
         $tokens = $phpcsFile->getTokens();
 
-        $validPrefixes = \PHP_CodeSniffer\Util\Tokens::$methodPrefixes;
+        $validPrefixes = Tokens::$methodPrefixes;
         $validPrefixes[] = \T_VAR;
 
         $startOfStatement = $phpcsFile->findPrevious($validPrefixes, $stackPtr - 1, null, false, null, true);
@@ -32,9 +35,9 @@ class MemberVarSpacingSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSnif
         $start = $startOfStatement;
         $prev = $phpcsFile->findPrevious($ignore, $startOfStatement - 1, null, true);
 
-        if (isset(\PHP_CodeSniffer\Util\Tokens::$commentTokens[$tokens[$prev]['code']]) === true) {
+        if (isset(Tokens::$commentTokens[$tokens[$prev]['code']]) === true) {
             // Assume the comment belongs to the member var if it is on a line by itself.
-            $prevContent = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $prev - 1, null, true);
+            $prevContent = $phpcsFile->findPrevious(Tokens::$emptyTokens, $prev - 1, null, true);
 
             if ($tokens[$prevContent]['line'] !== $tokens[$prev]['line']) {
                 // Check the spacing, but then skip it.
@@ -74,7 +77,7 @@ class MemberVarSpacingSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSnif
         // There needs to be n blank lines before the var, not counting comments.
         if ($start === $startOfStatement) {
             // No comment found.
-            $first = $phpcsFile->findFirstOnLine(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $start, true);
+            $first = $phpcsFile->findFirstOnLine(Tokens::$emptyTokens, $start, true);
 
             if ($first === false) {
                 $first = $start;
@@ -82,8 +85,8 @@ class MemberVarSpacingSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSnif
         } elseif ($tokens[$start]['code'] === \T_DOC_COMMENT_CLOSE_TAG) {
             $first = $tokens[$start]['comment_opener'];
         } else {
-            $first = $phpcsFile->findPrevious(\PHP_CodeSniffer\Util\Tokens::$emptyTokens, $start - 1, null, true);
-            $first = $phpcsFile->findNext(\PHP_CodeSniffer\Util\Tokens::$commentTokens, $first + 1);
+            $first = $phpcsFile->findPrevious(Tokens::$emptyTokens, $start - 1, null, true);
+            $first = $phpcsFile->findNext(Tokens::$commentTokens, $first + 1);
         }
 
         // Determine if this is the first member var.
@@ -103,7 +106,7 @@ class MemberVarSpacingSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSnif
         }
 
         if ($tokens[$prev]['code'] === \T_OPEN_CURLY_BRACKET
-            && isset(\PHP_CodeSniffer\Util\Tokens::$ooScopeTokens[$tokens[$tokens[$prev]['scope_condition']]['code']]) === true
+            && isset(Tokens::$ooScopeTokens[$tokens[$tokens[$prev]['scope_condition']]['code']]) === true
         ) {
             $errorMsg = 'Expected %s blank line(s) before first member var; %s found';
             $errorCode = 'FirstIncorrect';

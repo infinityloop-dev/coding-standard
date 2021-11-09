@@ -64,7 +64,7 @@ All other necessary sniffs to enforce remaining PSR12 rules are included.
 
 #### InfinityloopCodingStandard.Classes.FinalClassVisibility :wrench:
 
-When class is final and doesnt extend any other class, it's safe to change visibility of all protected functions/properties to private.
+When class is final and doesn't extend any other class, it's safe to change visibility of all protected functions/properties to private.
 
 #### InfinityloopCodingStandard.Namespaces.UseDoesStartWithBackslash :wrench:
 
@@ -86,9 +86,17 @@ Improved version of Slevomat UnionTypeHintFormat with added formatting of multil
 
 Space constructor arguments one per line when Constructor Property Promotion is used
 
+#### InfinityloopCodingStandard.Namespaces.ReferenceUsedNamesAfterUsage :wrench:
+
+Specialized version of Slevomat ReferenceUsedNamesOnlySniff with added rules when the sniff should reference by FQN or Use statement.
+
+Sniff provides the following settings:
+- count - Minimum number of occurrences after which the class will get imported via Use statement.
+- length - The maximum length of the class up to which it will be used via FQN, if this length is exceeded it will be imported via Use statement.
+
 ### Slevomat sniffs
 
-Detailed list of Slevomat sniffs with configured settings. Some sniffs are not included, either because we dont find them helpful, the are too strict, or collide with their counter-sniff (require/disallow pairs).
+Detailed list of Slevomat sniffs with configured settings. Some sniffs are not included, either because we don't find them helpful, they are too strict, or collide with their counter-sniff (require/disallow pairs).
 
 #### Functional
 
