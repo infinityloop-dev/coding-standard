@@ -485,7 +485,7 @@ class ReferenceUsedNamesAfterUsageSniff implements \PHP_CodeSniffer\Sniffs\Sniff
     private function getNormalizedClassName(string $name, array $useStatements, File $phpcsFile) : array
     {
         $unqualifiedName = NamespaceHelper::getUnqualifiedNameFromFullyQualifiedName($name);
-        $className = ClassHelper::getName($phpcsFile, TokenHelper::findNext($phpcsFile, [\T_CLASS, \T_INTERFACE, T_TRAIT], 0));
+        $className = ClassHelper::getName($phpcsFile, TokenHelper::findNext($phpcsFile, [\T_CLASS, \T_INTERFACE, \T_TRAIT], 0));
 
         if ($className === $unqualifiedName) {
             return $this->getUniqueNameFromNamespace(
