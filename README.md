@@ -93,6 +93,7 @@ Specialized version of Slevomat ReferenceUsedNamesOnlySniff with added rules whe
 Sniff provides the following settings:
 - count - Minimum number of occurrences after which the class will get imported via Use statement.
 - length - The maximum length of the class up to which it will be used via FQN, if this length is exceeded it will be imported via Use statement.
+- lineLength, lineClassLength - Class will get imported only if it's length is greater than lineClassLength and if the line length is greater than lineLength.
 
 ### Slevomat sniffs
 

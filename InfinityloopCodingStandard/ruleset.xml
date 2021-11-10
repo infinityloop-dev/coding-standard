@@ -506,7 +506,9 @@
     <rule ref="InfinityloopCodingStandard.Namespaces.ReferenceUsedNamesAfterUsage">
         <properties>
             <property name="count" value="3"/>
-            <property name="length" value="45"/>
+            <property name="length" value="60"/>
+            <property name="lineLength" value="130"/>
+            <property name="lineClassLength" value="45"/>
         </properties>
     </rule>
 </ruleset>

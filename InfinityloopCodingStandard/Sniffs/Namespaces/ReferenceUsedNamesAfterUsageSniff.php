@@ -33,6 +33,8 @@ class ReferenceUsedNamesAfterUsageSniff implements \PHP_CodeSniffer\Sniffs\Sniff
 
     public ?int $count = null;
     public ?int $length = null;
+    public ?int $lineLength = null;
+    public ?int $lineClassLength = null;
 
     /**
      * @return array<int, (int|string)>
@@ -165,9 +167,17 @@ class ReferenceUsedNamesAfterUsageSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                     $shouldBeUsed = $isFullyQualified;
                 }
 
+                $tokens = $phpcsFile->getTokens();
+
+                $start = TokenHelper::findFirstTokenOnLine($phpcsFile, $reference->startPointer);
+                $end = TokenHelper::findLastTokenOnLine($phpcsFile, $reference->startPointer);
+                $lineLength = \strlen(TokenHelper::getContent($phpcsFile, $start, $end));
+
                 if (!$shouldBeUsed
                     || ($this->count !== null && $referenced[$canonicalName] < $this->count)
                     && ($this->length !== null && $this->length > \strlen($canonicalName))
+                    && ($this->lineLength !== null && $this->lineClassLength !== null && ($this->lineClassLength >= \strlen($canonicalName)
+                        || $this->lineLength >= $lineLength))
                 ) {
                     continue;
                 }
@@ -183,6 +193,12 @@ class ReferenceUsedNamesAfterUsageSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                         ? 'because it\'s length is more than ' . $this->length . ' symbols.'
                         : 'because it\'s used more than ' . $this->count . ' times and it\'s length is more than '
                             . $this->length . ' symbols.';
+                }
+
+                if ($this->lineLength !== null && $this->lineClassLength !== null && \strlen($canonicalName) > $this->lineClassLength
+                    && $lineLength > $this->lineLength) {
+                    $reason = 'because line length is more than ' . $this->lineLength
+                        . ' symbols and class length is more than ' . $this->lineClassLength . ' symbols.';
                 }
 
                 $referenceErrors[] = (object) [
@@ -210,7 +226,7 @@ class ReferenceUsedNamesAfterUsageSniff implements \PHP_CodeSniffer\Sniffs\Sniff
             $startPointer = $reference->startPointer;
             $canonicalName = $referenceData->canonicalName;
             $useStatements = UseStatementHelper::getUseStatementsForPointer($phpcsFile, $reference->startPointer);
-            [$nameToReference, $isConflicting] = $this->getNormalizedClassName($reference->name, $useStatements);
+            [$nameToReference, $isConflicting] = $this->getNormalizedClassName($reference->name, $useStatements, $phpcsFile);
             $canonicalNameToReference = \strtolower($nameToReference);
 
             $canBeFixed = \array_reduce(
