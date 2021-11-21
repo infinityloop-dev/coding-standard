@@ -174,29 +174,29 @@ class ReferenceUsedNamesAfterUsageSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 $lineLength = \strlen(TokenHelper::getContent($phpcsFile, $start, $end));
 
                 if (!$shouldBeUsed
-                    || ($this->count !== null && $referenced[$canonicalName] < $this->count)
-                    && ($this->length !== null && $this->length > \strlen($canonicalName))
-                    && ($this->lineLength !== null && $this->lineClassLength !== null && ($this->lineClassLength >= \strlen($canonicalName)
-                        || $this->lineLength >= $lineLength))
+                    || ($this->count === null || $this->count > $referenced[$canonicalName])
+                    && ($this->length === null || $this->length > \strlen($canonicalName))
+                    && ($this->lineLength === null || $this->lineClassLength === null || $this->lineClassLength > \strlen($canonicalName)
+                        || $this->lineLength > $lineLength)
                 ) {
                     continue;
                 }
 
                 $reason = '';
 
-                if ($referenced[$canonicalName] >= $this->count) {
+                if ($this->count !== null && $referenced[$canonicalName] >= $this->count) {
                     $reason = 'because it\'s used more than ' . $this->count . ' times.';
                 }
 
-                if ($this->length !== null && $this->length < \strlen($canonicalName)) {
+                if ($this->length !== null && $this->length <= \strlen($canonicalName)) {
                     $reason = $reason === ''
                         ? 'because it\'s length is more than ' . $this->length . ' symbols.'
                         : 'because it\'s used more than ' . $this->count . ' times and it\'s length is more than '
-                            . $this->length . ' symbols.';
+                        . $this->length . ' symbols.';
                 }
 
-                if ($this->lineLength !== null && $this->lineClassLength !== null && \strlen($canonicalName) > $this->lineClassLength
-                    && $lineLength > $this->lineLength) {
+                if ($this->lineLength !== null && $this->lineClassLength !== null && \strlen($canonicalName) >= $this->lineClassLength
+                    && $lineLength >= $this->lineLength) {
                     $reason = 'because line length is more than ' . $this->lineLength
                         . ' symbols and class length is more than ' . $this->lineClassLength . ' symbols.';
                 }
@@ -485,7 +485,7 @@ class ReferenceUsedNamesAfterUsageSniff implements \PHP_CodeSniffer\Sniffs\Sniff
     private function getNormalizedClassName(string $name, array $useStatements, File $phpcsFile) : array
     {
         $unqualifiedName = NamespaceHelper::getUnqualifiedNameFromFullyQualifiedName($name);
-        $className = ClassHelper::getName($phpcsFile, TokenHelper::findNext($phpcsFile, \T_CLASS, 0));
+        $className = ClassHelper::getName($phpcsFile, TokenHelper::findNext($phpcsFile, [\T_CLASS, \T_INTERFACE, \T_TRAIT], 0));
 
         if ($className === $unqualifiedName) {
             return $this->getUniqueNameFromNamespace(
