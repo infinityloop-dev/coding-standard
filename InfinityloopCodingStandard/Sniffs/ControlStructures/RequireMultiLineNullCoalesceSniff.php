@@ -55,7 +55,7 @@ class RequireMultiLineNullCoalesceSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         $phpcsFile->fixer->endChangeset();
     }
 
-    private function getEndOfLineBefore(\PHP_CodeSniffer\Files\File $phpcsFile, int $pointer) : int
+    private function getEndOfLineBefore(File $phpcsFile, int $pointer) : int
     {
         $tokens = $phpcsFile->getTokens();
 
@@ -103,7 +103,7 @@ class RequireMultiLineNullCoalesceSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         return $endOfLineBefore;
     }
 
-    private function getIndentation(\PHP_CodeSniffer\Files\File $phpcsFile, int $endOfLinePointer) : string
+    private function getIndentation(File $phpcsFile, int $endOfLinePointer) : string
     {
         $pointerAfterWhitespace = TokenHelper::findNextExcluding($phpcsFile, \T_WHITESPACE, $endOfLinePointer + 1);
         $actualIndentation = TokenHelper::getContent($phpcsFile, $endOfLinePointer + 1, $pointerAfterWhitespace - 1);

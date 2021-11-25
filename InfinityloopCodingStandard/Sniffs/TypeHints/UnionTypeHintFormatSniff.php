@@ -224,7 +224,7 @@ class UnionTypeHintFormatSniff implements \PHP_CodeSniffer\Sniffs\Sniff
 
     private function getTypeHintContentWithoutNull(
         File $phpcsFile,
-        \SlevomatCodingStandard\Helpers\TypeHint $typeHint,
+        TypeHint $typeHint,
     ) : string
     {
         $tokens = $phpcsFile->getTokens();
@@ -258,7 +258,7 @@ class UnionTypeHintFormatSniff implements \PHP_CodeSniffer\Sniffs\Sniff
 
     private function fixTypeHint(
         File $phpcsFile,
-        \SlevomatCodingStandard\Helpers\TypeHint $typeHint,
+        TypeHint $typeHint,
         string $fixedTypeHint,
     ) : void
     {

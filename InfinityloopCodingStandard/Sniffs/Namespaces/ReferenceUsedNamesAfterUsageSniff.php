@@ -388,7 +388,7 @@ class ReferenceUsedNamesAfterUsageSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         $phpcsFile->fixer->endChangeset();
     }
 
-    private function getUseStatementPlacePointer(\PHP_CodeSniffer\Files\File $phpcsFile, int $openTagPointer, array $useStatements) : int
+    private function getUseStatementPlacePointer(File $phpcsFile, int $openTagPointer, array $useStatements) : int
     {
         if (\count($useStatements) !== 0) {
             $lastUseStatement = \array_values($useStatements)[\count($useStatements) - 1];
@@ -436,7 +436,7 @@ class ReferenceUsedNamesAfterUsageSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         return $useStatementPlacePointer;
     }
 
-    private function getReferences(\PHP_CodeSniffer\Files\File $phpcsFile, int $openTagPointer) : array
+    private function getReferences(File $phpcsFile, int $openTagPointer) : array
     {
         $references = [];
 
