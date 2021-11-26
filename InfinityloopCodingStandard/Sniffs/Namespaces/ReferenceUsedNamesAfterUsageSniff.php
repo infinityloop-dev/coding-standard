@@ -173,29 +173,47 @@ class ReferenceUsedNamesAfterUsageSniff implements \PHP_CodeSniffer\Sniffs\Sniff
                 $end = TokenHelper::findLastTokenOnLine($phpcsFile, $reference->startPointer);
                 $lineLength = \strlen(TokenHelper::getContent($phpcsFile, $start, $end));
 
-                if (!$shouldBeUsed
-                    || ($this->count === null || $this->count > $referenced[$canonicalName])
-                    && ($this->length === null || $this->length > \strlen($canonicalName))
-                    && ($this->lineLength === null || $this->lineClassLength === null || $this->lineClassLength > \strlen($canonicalName)
-                        || $this->lineLength > $lineLength)
-                ) {
-                    continue;
+                $isAlreadyImported = false;
+
+                foreach ($useStatements as $useStatement) {
+                    if ($useStatement->getFullyQualifiedTypeName() === $canonicalName) {
+                        $isAlreadyImported = true;
+
+                        break;
+                    }
+                }
+
+                $isImported = $isFullyQualified && $isAlreadyImported;
+
+                if (!$isImported) {
+                    if (!$shouldBeUsed
+                        || ($this->count === null || $this->count > $referenced[$canonicalName])
+                        && ($this->length === null || $this->length > \strlen($canonicalName))
+                        && ($this->lineLength === null || $this->lineClassLength === null || $this->lineClassLength > \strlen($canonicalName)
+                            || $this->lineLength > $lineLength)
+                    ) {
+                        continue;
+                    }
                 }
 
                 $reason = '';
 
-                if ($this->count !== null && $referenced[$canonicalName] >= $this->count) {
+                if ($isImported) {
+                    $reason = 'because it\'s already imported.';
+                }
+
+                if (!$isImported && $this->count !== null && $referenced[$canonicalName] >= $this->count) {
                     $reason = 'because it\'s used more than ' . $this->count . ' times.';
                 }
 
-                if ($this->length !== null && $this->length <= \strlen($canonicalName)) {
+                if (!$isImported && $this->length !== null && $this->length <= \strlen($canonicalName)) {
                     $reason = $reason === ''
                         ? 'because it\'s length is more than ' . $this->length . ' symbols.'
                         : 'because it\'s used more than ' . $this->count . ' times and it\'s length is more than '
                         . $this->length . ' symbols.';
                 }
 
-                if ($this->lineLength !== null && $this->lineClassLength !== null && \strlen($canonicalName) >= $this->lineClassLength
+                if (!$isImported && $this->lineLength !== null && $this->lineClassLength !== null && \strlen($canonicalName) >= $this->lineClassLength
                     && $lineLength >= $this->lineLength) {
                     $reason = 'because line length is more than ' . $this->lineLength
                         . ' symbols and class length is more than ' . $this->lineClassLength . ' symbols.';
@@ -370,7 +388,7 @@ class ReferenceUsedNamesAfterUsageSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         $phpcsFile->fixer->endChangeset();
     }
 
-    private function getUseStatementPlacePointer(\PHP_CodeSniffer\Files\File $phpcsFile, int $openTagPointer, array $useStatements) : int
+    private function getUseStatementPlacePointer(File $phpcsFile, int $openTagPointer, array $useStatements) : int
     {
         if (\count($useStatements) !== 0) {
             $lastUseStatement = \array_values($useStatements)[\count($useStatements) - 1];
@@ -418,7 +436,7 @@ class ReferenceUsedNamesAfterUsageSniff implements \PHP_CodeSniffer\Sniffs\Sniff
         return $useStatementPlacePointer;
     }
 
-    private function getReferences(\PHP_CodeSniffer\Files\File $phpcsFile, int $openTagPointer) : array
+    private function getReferences(File $phpcsFile, int $openTagPointer) : array
     {
         $references = [];
 

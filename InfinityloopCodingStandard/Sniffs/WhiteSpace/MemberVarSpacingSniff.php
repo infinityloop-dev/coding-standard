@@ -168,12 +168,12 @@ class MemberVarSpacingSniff extends \PHP_CodeSniffer\Sniffs\AbstractVariableSnif
     }
 
     //@phpcs:ignore Squiz.Commenting.FunctionComment.ScalarTypeHintMissing
-    protected function processVariable(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr) : void
+    protected function processVariable(File $phpcsFile, $stackPtr) : void
     {
     }
 
     //@phpcs:ignore Squiz.Commenting.FunctionComment.ScalarTypeHintMissing
-    protected function processVariableInString(\PHP_CodeSniffer\Files\File $phpcsFile, $stackPtr) : void
+    protected function processVariableInString(File $phpcsFile, $stackPtr) : void
     {
     }
 }
